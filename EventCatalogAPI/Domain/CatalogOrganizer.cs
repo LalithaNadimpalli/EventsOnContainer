@@ -5,9 +5,10 @@ using System.Threading.Tasks;
 
 namespace EventCatalogAPI.Domain
 {
-    public class CatalogCategory
+    public class CatalogOrganizer
     {
-        public int CategoryId { get; set; }
-        public string CategoryName { get; set; }
+        public int OrganizerId { get; set; }
+        public string OrganizerName { get; set; }
+
     }
 }
