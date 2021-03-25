@@ -17,6 +17,12 @@ namespace EventCatalogAPI.Domain
         public string EventStartTime { get; set; }
         public string EventEndTime { get; set; }
 
+        public int CategoryId { get; set; }
+        public int TypeId { get; set; }
+        public CatalogCategory CatalogCategory { get; set; }
+        public CatalogType CatalogType { get; set; }
+
+
 
     }
 }
