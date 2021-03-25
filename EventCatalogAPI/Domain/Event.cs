@@ -10,12 +10,18 @@ namespace EventCatalogAPI.Domain
         public int EventId { get; set; }
         public string EventName { get; set; }
         public string Description { get; set; }
+        public decimal Price { get; set; }
+        public string EventImageUrl { get; set; }
+        public DateTime EventStartTime { get; set; }
+        public DateTime EventEndTime { get; set; }
+        public int HostId { get; set; }
+        public string HostName { get; set; }
+        public string HostDescription { get; set; }
+
+
+
         public string Location { get; set; }
         public string Address { get; set; }
-        public decimal Fee { get; set; }
-        public string EventImageUrl { get; set; }
-        public string EventStartTime { get; set; }
-        public string EventEndTime { get; set; }
 
         public int CategoryId { get; set; }
         public int TypeId { get; set; }
