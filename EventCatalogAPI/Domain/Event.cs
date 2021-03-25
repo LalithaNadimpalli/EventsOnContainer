@@ -19,8 +19,8 @@ namespace EventCatalogAPI.Domain
 
         public int CategoryId { get; set; }
         public int TypeId { get; set; }
-        public EventCategory CatalogCategory { get; set; }
-        public EventType CatalogType { get; set; }
+        public EventCategory EventCategory { get; set; }
+        public EventType EventType { get; set; }
 
 
 
