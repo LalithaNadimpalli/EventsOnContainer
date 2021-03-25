@@ -5,26 +5,26 @@ using System.Threading.Tasks;
 
 namespace EventCatalogAPI.Domain
 {
-    public class Event
+    public class EventItem
     {
-        public int EventId { get; set; }
-        public string EventName { get; set; }
+        public int Id { get; set; }
+        public string Event { get; set; }
         public string Description { get; set; }
         public decimal Price { get; set; }
         public string EventImageUrl { get; set; }
         public DateTime EventStartTime { get; set; }
         public DateTime EventEndTime { get; set; }
-        public int HostId { get; set; }
-        public string HostName { get; set; }
-        public string HostDescription { get; set; }
 
 
-
-        public string Location { get; set; }
-        public string Address { get; set; }
-
-        public int CategoryId { get; set; }
+        public int OrganizerId { get; set; }
+        public int AddressId { get; set; }
         public int TypeId { get; set; }
+        public int CatagoryId { get; set; }
+
+       
+
+        public EventOrganizer  EventOrganizer { get; set; }
+        public Address  Address { get; set; }
         public EventCategory EventCategory { get; set; }
         public EventType EventType { get; set; }
 
