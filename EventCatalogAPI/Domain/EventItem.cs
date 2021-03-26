@@ -8,7 +8,7 @@ namespace EventCatalogAPI.Domain
     public class EventItem
     {
         public int Id { get; set; }
-        public string Event { get; set; }
+        public string EventName { get; set; }
         public string Description { get; set; }
         public decimal Price { get; set; }
         public string EventImageUrl { get; set; }
@@ -24,7 +24,7 @@ namespace EventCatalogAPI.Domain
        
 
         public EventOrganizer  EventOrganizer { get; set; }
-        public Address  Address { get; set; }
+        public EventAddress  Address { get; set; }
         public EventCategory EventCategory { get; set; }
         public EventType EventType { get; set; }
 
