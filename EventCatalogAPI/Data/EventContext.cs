@@ -14,7 +14,7 @@ namespace EventCatalogAPI.Data
 
         }
 
-        public DbSet<EventAddress>  Addresses { get; set; }
+        public DbSet<EventAddress>  Address { get; set; }
         public DbSet<EventCategory>  EventCategories { get; set; }
         public DbSet< EventOrganizer>  EventOrganizers { get; set; }
         public DbSet<EventType> EventTypes { get; set; }
