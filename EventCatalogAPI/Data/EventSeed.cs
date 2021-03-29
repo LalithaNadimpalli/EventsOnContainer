@@ -13,9 +13,9 @@ namespace EventCatalogAPI.Data
             //we are checking whether the database is created or not in the below line.
             //catalogContext.Database.EnsureCreated();
             //Below Line checks the database, if it has any rows
-            if (!eventContext.Address.Any()) //EventAddress Table
+            if (!eventContext.Addresses.Any()) //EventAddress Table
             {
-                eventContext.Address.AddRange(GetAddress());
+                eventContext.Addresses.AddRange(GetAddress());
                 //Until We save changes, it will not commit or create table.
                 eventContext.SaveChanges();
             }
