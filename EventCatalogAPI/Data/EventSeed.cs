@@ -40,7 +40,13 @@ namespace EventCatalogAPI.Data
         }
         private static IEnumerable<EventType> GetEventTypes()
         {
-            throw new NotImplementedException();
+            return new List<EventType>()
+            {
+                new EventType() { Type= "Online"},
+                new EventType() { Type= "Inperson"},
+                new EventType() { Type= "Online&Inperson"},
+             
+            };
         }
         private static IEnumerable<EventCategory> GetEventCategories()
         {
