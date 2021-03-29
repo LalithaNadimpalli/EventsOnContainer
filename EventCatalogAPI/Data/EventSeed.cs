@@ -114,6 +114,49 @@ namespace EventCatalogAPI.Data
             };
         }
         
+        private static IEnumerable<EventItem> GetEventItem()
+            {
+                return new List<EventItem>()
+                {
+                    new EventItem { EventTypeId = 2, EventName = "FireWrok ",
+                        EventCatagoryId = 11, Description = "Fouth of July celebration ", Price = 22.45M,
+                        EventStartTime =  11:30pm , EventEndTime = 12:30 ,
+                        Organizer = "Adam Silver " , AddressId = 2, EventImageId = "http://externaleventbaseurltoberplaced/api/pic1"},
+                    new EventItem { EventTypeId = 2, EventName = "Pumpkin Decorating For Dammy ",
+                        EventCatagoryId =5 , Description = "Cool way to decorate pumpkin for Halloween ", Price = 10.00M,
+                        EventStartTime = 9:00am , EventEndTime = 5:00pm,
+                        Organizer = "Marta Stewart " , AddressId = 5, EventImageId = "http://externaleventbaseurltoberplaced/api/pic2"},
+                    new EventItem { EventTypeId = 2, EventName = "Memorial Day ",
+                        EventCatagoryId = 11, Description = "Memorial Day Remembrance Walk" , Price = 0.00M,
+                        EventStartTime = 8:00am, EventEndTime = 12:00pm,
+                        Organizer = "Barack Obama ", AddressId = 1, EventImageId = "http://externaleventbaseurltoberplaced/api/pic3" },
+                    new EventItem { EventTypeId = 3, EventName = "Seminar ",
+                        EventCatagoryId = 6, Description = "How to gradute without student loan ", Price = 99.99M,
+                        EventStartTime = 1:00pm , EventEndTime = 4:00pm,
+                        Organizer = "Dr. Ben Jackson " , AddressId = 4, EventImageId = "http://externaleventbaseurltoberplaced/api/pic4"},
+                    new EventItem { EventTypeId = 2, EventName = "Music Concert ",
+                        EventCatagoryId = 1, Description = "Best 80's Party ever ", Price = 125.00M,
+                        EventStartTime = 9:00pm, EventEndTime = 1:00am,
+                        Organizer = "Linda Campbell ", AddressId = 1, EventImageId = "http://externaleventbaseurltoberplaced/api/pic5"},
+                    new EventItem { EventTypeId = 2, EventName = "Botany",
+                        EventCatagoryId = 11, Description = "World Congress on Medical and Aromatic Plants", Price =  63.45M,
+                        EventStartTime = 10:00am, EventEndTime = 6:00pm,
+                        Organizer = "Sarah Clark ", AddressId = 3, EventImageId = "http://externaleventbaseurltoberplaced/api/pic6" },
+                    new EventItem { EventTypeId = 3, EventName = "Hindu's festival in Seattle",
+                        EventCatagoryId = 11, Description = "Come join us to celebrate life ", Price = 0.00M ,
+                        EventStartTime = 10:00am, EventEndTime = 6:00pm,
+                        Organizer = "Rita Pia " , AddressId = 7, EventImageId = "http://externaleventbaseurltoberplaced/api/pic7"},
+                    new EventItem { EventTypeId = 2, EventName = "Celebrity birthday cake Studio",
+                        EventCatagoryId =5 , Description = "Beautifully delicious cakes for birthday", Price = 345.00M,
+                        EventStartTime = 8:00am, EventEndTime = 8:00pm,
+                        Organizer = "Sue Jeff ", AddressId = 8, EventImageId = "http://externaleventbaseurltoberplaced/api/pic8"},
+                    new EventItem { EventTypeId = 2, EventName = "Wine Tasting",
+                        EventCatagoryId = 3, Description = "The best Wine in Washington state ", Price = 24.95M,
+                        EventStartTime = 1:00pm, EventEndTime = 9:00pm,
+                        Organizer = "Tad Robert ", AddressId = 4, EventImageId = "http://externaleventbaseurltoberplaced/api/pic9" }
+                };
+            }
+        
     }
 }
 
