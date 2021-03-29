@@ -1,8 +1,10 @@
 ﻿using EventCatalogAPI.Domain;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
 
 namespace EventCatalogAPI.Data
 {
@@ -10,6 +12,7 @@ namespace EventCatalogAPI.Data
     {
         public static void Seed(EventContext eventContext)
         {
+            //eventContext.Database.Migrate();
             //we are checking whether the database is created or not in the below line.
             //catalogContext.Database.EnsureCreated();
             //Below Line checks the database, if it has any rows
@@ -19,8 +22,34 @@ namespace EventCatalogAPI.Data
                 //Until We save changes, it will not commit or create table.
                 eventContext.SaveChanges();
             }
+            if (eventContext.EventTypes.Any()) //EventTypes Table
+            {
+                eventContext.EventTypes.AddRange(GetEventTypes());
+                eventContext.SaveChanges();
+            }
+            if (eventContext.EventCategories.Any()) //EventCategories Table
+            {
+                eventContext.EventCategories.AddRange(GetEventCategories());
+                eventContext.SaveChanges();
+            }
+            if (eventContext.EventItems.Any()) //EVentItems Table
+            {
+                eventContext.EventItems.AddRange(GetEventItems());
+                eventContext.SaveChanges();
+            }
         }
-
+        private static IEnumerable<EventType> GetEventTypes()
+        {
+            throw new NotImplementedException();
+        }
+        private static IEnumerable<EventCategory> GetEventCategories()
+        {
+            throw new NotImplementedException();
+        }
+        private static IEnumerable<EventItem> GetEventItems()
+        {
+            throw new NotImplementedException();
+        }
         private static IEnumerable<EventAddress> GetAddress()
         {
             return new List<EventAddress>
@@ -61,3 +90,13 @@ namespace EventCatalogAPI.Data
         }
     }
 }
+
+            
+            
+        
+    
+
+   
+
+   
+
