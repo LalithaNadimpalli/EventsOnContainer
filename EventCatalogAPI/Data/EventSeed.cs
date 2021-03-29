@@ -44,7 +44,7 @@ namespace EventCatalogAPI.Data
             {
                 new EventType() { Type= "Online"},
                 new EventType() { Type= "Inperson"},
-                new EventType() { Type= "Online/Inperson"},
+                new EventType() { Type= "Online&Inperson"},
              
             };
         }
