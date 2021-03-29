@@ -94,6 +94,26 @@ namespace EventCatalogAPI.Data
                 }
             };
         }
+        
+        private static IEnumerable<EventCategory> GetEventCategories()
+        {
+            return new List<EventCategory>()
+            {
+                new EventCategory { Category = "Music" },
+                new EventCategory { Category = "Sports" },
+                new EventCategory { Category = "Food and Drink" },
+                new EventCategory { Category = "Book Club" },
+                new EventCategory { Category = "Kids Festival" },
+                new EventCategory { Category = "Business" },
+                new EventCategory { Category = "Job Fair" },
+                new EventCategory { Category = "Movies" },
+                new EventCategory { Category = "Tech" },
+                new EventCategory { Category = "Car Show" },
+                new EventCategory { Category = "Other" }
+
+            };
+        }
+        
     }
 }
 
