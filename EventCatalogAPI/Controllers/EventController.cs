@@ -22,8 +22,7 @@ namespace EventCatalogAPI.Controllers
             _config = config;
         }
 
-        [HttpGet]
-        [Route("[action]")]
+        [HttpGet("[action]")]
         public async Task<IActionResult> EventTypes()
         {
             var events = await _context.EventTypes.ToListAsync();
