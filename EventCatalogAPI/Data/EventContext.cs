@@ -16,7 +16,6 @@ namespace EventCatalogAPI.Data
 
         public DbSet<EventAddress>  Addresses { get; set; }
         public DbSet<EventCategory>  EventCategories { get; set; }
-        public DbSet< EventOrganizer>  EventOrganizers { get; set; }
         public DbSet<EventType> EventTypes { get; set; }
         public DbSet<EventItem> EventItems { get; set; }
 
@@ -40,17 +39,6 @@ namespace EventCatalogAPI.Data
                 .HasMaxLength(100);
 
                 });//EVentCategory table
-
-            modelBuilder.Entity<EventOrganizer>(o =>
-            {
-                o.Property(o => o.Id)
-                .ValueGeneratedOnAdd()
-                .IsRequired();
-                o.Property(o => o.Coordinator)
-                .HasMaxLength(100);
-                o.Property(o => o.Title)
-                 .HasMaxLength(100);
-            });//EventOrganizer Table
 
             modelBuilder.Entity<EventType>(t =>
             {
