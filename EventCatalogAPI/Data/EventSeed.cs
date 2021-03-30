@@ -48,10 +48,7 @@ namespace EventCatalogAPI.Data
              
             };
         }
-        private static IEnumerable<EventCategory> GetEventCategories()
-        {
-            throw new NotImplementedException();
-        }
+
         private static IEnumerable<EventItem> GetEventItems()
         {
             throw new NotImplementedException();
