@@ -85,10 +85,6 @@ namespace EventCatalogAPI.Data
                  .WithMany()
                  .HasForeignKey(i => i.CatagoryId);
 
-                i.HasOne(i => i.EventOrganizer)
-               .WithMany()
-               .HasForeignKey(i => i.OrganizerId);
-
                 i.HasOne(i => i.EventType)
                  .WithMany()
                  .HasForeignKey(i => i.TypeId);
