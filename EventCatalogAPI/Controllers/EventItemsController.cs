@@ -1,4 +1,5 @@
 ﻿using EventCatalogAPI.Data;
+using EventCatalogAPI.Domain;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -16,6 +17,10 @@ namespace EventCatalogAPI.Controllers
     {
         private readonly EventContext _context;
         private readonly IConfiguration _config;
+        private object eventCategoryId;
+        private object eventCategoryID;
+        private object await_context;
+
         public EventItemsController(EventContext context, IConfiguration config)
         {
             _context = context;
@@ -63,5 +68,34 @@ namespace EventCatalogAPI.Controllers
             return Ok(events);
         }
 
+        //List of Event Categories
+        [HttpGet]
+        [Route("[action]")]
+
+        public async Task<IActionResult> CategoryLists()
+        {
+            var events = await _context.EventCategory.ToListAsync();
+            return Ok(events);
+        }
+
+
+        //Sort Event by Category 
+        [HttpGet]
+        [Route("[action]")]
+        public async Task<IActionResult> EventCategories(
+            [FromQuery] int pageIndex = 0,
+            [FromQuery] int pageSize = 4)
+        {
+
+            var events = await _context.EventItems
+                    .OrderBy(c => c.EventCategory)
+                    .Skip(pageIndex * pageSize)
+                    .Take(pageSize)
+                    .ToListAsync();
+
+            return Ok(events);
+        }
+
     }
+
 }
