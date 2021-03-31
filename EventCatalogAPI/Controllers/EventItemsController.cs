@@ -74,7 +74,7 @@ namespace EventCatalogAPI.Controllers
 
         public async Task<IActionResult> CategoryLists()
         {
-            var events = await _context.EventCategory.ToListAsync();
+            var events = await _context.EventCategories.ToListAsync();
             return Ok(events);
         }
 
