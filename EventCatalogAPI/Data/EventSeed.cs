@@ -12,27 +12,24 @@ namespace EventCatalogAPI.Data
     {
         public static void Seed(EventContext eventContext)
         {
-            //eventContext.Database.Migrate();
-            //we are checking whether the database is created or not in the below line.
-            //catalogContext.Database.EnsureCreated();
-            //Below Line checks the database, if it has any rows
-            if (!eventContext.Addresses.Any()) //EventAddress Table
+            eventContext.Database.Migrate();
+          
+            if (!eventContext.Addresses.Any()) 
             {
                 eventContext.Addresses.AddRange(GetAddress());
-                //Until We save changes, it will not commit or create table.
                 eventContext.SaveChanges();
             }
-            if (eventContext.EventTypes.Any()) //EventTypes Table
+            if (!eventContext.EventTypes.Any()) 
             {
                 eventContext.EventTypes.AddRange(GetEventTypes());
                 eventContext.SaveChanges();
             }
-            if (eventContext.EventCategories.Any()) //EventCategories Table
+            if (!eventContext.EventCategories.Any()) 
             {
                 eventContext.EventCategories.AddRange(GetEventCategories());
                 eventContext.SaveChanges();
             }
-            if (eventContext.EventItems.Any()) //EVentItems Table
+            if (!eventContext.EventItems.Any()) 
             {
                 eventContext.EventItems.AddRange(GetEventItems());
                 eventContext.SaveChanges();
@@ -42,17 +39,14 @@ namespace EventCatalogAPI.Data
         {
             return new List<EventType>()
             {
-                new EventType() { Type= "Online"},
-                new EventType() { Type= "Inperson"},
-                new EventType() { Type= "Online&Inperson"},
+                new EventType() { Type = "Online"},
+                new EventType() { Type = "In person"},
+                new EventType() { Type = "Online & In person"},
              
             };
         }
 
-        private static IEnumerable<EventItem> GetEventItems()
-        {
-            throw new NotImplementedException();
-        }
+       
         private static IEnumerable<EventAddress> GetAddress()
         {
             return new List<EventAddress>
@@ -106,11 +100,155 @@ namespace EventCatalogAPI.Data
                 new EventCategory { Category = "Movies" },
                 new EventCategory { Category = "Tech" },
                 new EventCategory { Category = "Car Show" },
+                new EventCategory { Category = "Festival" },
                 new EventCategory { Category = "Other" }
 
             };
         }
-           
+        private static IEnumerable<EventItem> GetEventItems()
+        {
+            return new List<EventItem>()
+            { 
+                new EventItem
+                {
+                    CatagoryId = 10,
+                    AddressId = 3,
+                    TypeId = 2,
+                    EventName = "Toyota bash 4 Annual carshow ",
+                 // Description = "",
+                 // Price = "",
+                    EventStartTime = Convert.ToDateTime("12/12/2021"),
+                    EventEndTime = Convert.ToDateTime("12/12/2021"),
+                    OrganizerName = "Tyota",
+                    OrganzierPhoneNumber = "1-629-162-6660",
+                    EventImageUrl = "http://externaleventbaseurltoberplaced/api/pic/10"
+                },
+                   new EventItem
+                 {
+                    CatagoryId = 10,
+                    AddressId = 2,
+                    TypeId = 1,
+                    EventName = "CARS AND CARBON ",
+                    Description = "	An event every month that begins at 7:00 pm ",
+                 // Price = "",
+                    EventStartTime = Convert.ToDateTime("12/05/2021"),
+                    EventEndTime = Convert.ToDateTime("12/05/2021"),
+                    OrganizerName = "US car show ",
+                    OrganzierPhoneNumber = "1-629-167-6460",
+                    EventImageUrl = "http://externaleventbaseurltoberplaced/api/pic/11"
+                },
+                   new EventItem {
+                     CatagoryId = 8,
+                     AddressId = 2,
+                     TypeId = 2,
+                     EventName = "FireWrok ",
+                     Description = "Fouth of July celebration ",
+                     Price = 22.45M,
+                     EventStartTime =  Convert.ToDateTime("12/13/2021"),//mm/dd/yyy
+                     EventEndTime = Convert.ToDateTime("12/05/2021"),
+                     OrganizerName = "Adam Silver " ,
+                     OrganzierPhoneNumber = "1-629-167-6460",
+                     EventImageUrl = "http://externaleventbaseurltoberplaced/api/pic/3"},
+                   new EventItem {
+                     CatagoryId = 4,
+                     AddressId = 4,
+                     TypeId = 2,
+                     EventName = "Pumpkin Decorating For Dammy ",
+                     Description = "Cool way to decorate pumpkin for Halloween ",
+                     Price = 10.00M,
+                     EventStartTime = Convert.ToDateTime("04/05/2021"),
+                     EventEndTime =Convert.ToDateTime("04/07/2021"),
+                     OrganizerName = "Marta Stewart " ,
+                     OrganzierPhoneNumber = "1-629-167-6460",
+                     EventImageUrl = "http://externaleventbaseurltoberplaced/api/pic/2"},
+                          new EventItem {
+                     CatagoryId = 11,
+                     AddressId = 2,
+                     TypeId = 2,
+                     EventName = "Memorial Day ",
+                     Description = "Memorial Day Remembrance Walk" ,
+                     Price = 0.00M,
+                     EventStartTime = Convert.ToDateTime("04/03/2021"),
+                     EventEndTime =Convert.ToDateTime("04/15/2021"),
+                     OrganizerName = "Barack Obama ",
+                     OrganzierPhoneNumber = "1-629-197-6460",
+                     EventImageUrl = "http://externaleventbaseurltoberplaced/api/pic/2" },
+                    new   EventItem {
+                       CatagoryId = 3,
+                       AddressId = 2,
+                       TypeId = 1,
+                       EventName = "Seminar ",
+                       Description = "How to gradute without student loan ",
+                       Price = 99.99M,
+                       EventStartTime = Convert.ToDateTime("04/05/2021"),
+                       EventEndTime = Convert.ToDateTime("04/05/2021"),
+                       OrganizerName = "Dr.oza " ,
+                       OrganzierPhoneNumber = "1-449-197-6460",
+                       EventImageUrl = "http://externaleventbaseurltoberplaced/api/pic/4"},
+                 new EventItem {
+                       CatagoryId = 8,
+                       AddressId = 2,
+                       TypeId = 1,
+                       EventName = "Music Concert ",
+                       Description = "Best 80's Party ever ",
+                       Price = 125.00M,
+                       EventStartTime = Convert.ToDateTime("04/05/2021"),
+                       EventEndTime = Convert.ToDateTime("04/05/2021"),
+                       OrganizerName = "xz.org ",
+                       OrganzierPhoneNumber = "1-449-197-6460",
+                       EventImageUrl = "http://externaleventbaseurltoberplaced/api/pic/5"},
+                 new EventItem {
+                       CatagoryId = 12,
+                       AddressId = 2,
+                       TypeId = 3,
+                       EventName="Medical conference",
+                       Description = "World Congress on Medical and Aromatic Plants",
+                       Price =  63.45M,
+                       EventStartTime =  Convert.ToDateTime("04/05/2021"),
+                       EventEndTime =  Convert.ToDateTime("04/05/2021"),
+                       OrganizerName = " Tealdc",
+                       OrganzierPhoneNumber = "1-449-197-6460",
+                       EventImageUrl = "http://externaleventbaseurltoberplaced/api/pic/6" },
+            new EventItem {
+                       CatagoryId = 11,
+                       AddressId = 2,
+                       TypeId = 1,
+                       EventName = "Hindu's festival in Seattle",
+                       Description = "Come join us to celebrate life ",
+                       Price = 0.00M ,
+                       EventStartTime =  Convert.ToDateTime("04/06/2021"),
+                       EventEndTime =  Convert.ToDateTime("04/06/2021"),
+                       OrganizerName = "Gandi.org  " ,
+                       OrganzierPhoneNumber = "1-449-197-6460",
+                       EventImageUrl = "http://externaleventbaseurltoberplaced/api/pic/7"},
+                 new EventItem {
+                     CatagoryId = 3,
+                     AddressId = 2,
+                     TypeId = 1,
+                     EventName = "Celebrity birthday cake Studio",
+                     Description = "Beautifully delicious cakes for birthday",
+                     Price = 345.00M,
+                     EventStartTime = Convert.ToDateTime("07/06/2021"),
+                     EventEndTime = Convert.ToDateTime("07/06/2021"),
+                     OrganizerName = "MybirthDay.org ",
+                     OrganzierPhoneNumber = "1-449-197-6460",
+                     EventImageUrl = "http://externaleventbaseurltoberplaced/api/pic/8"},
+                  new EventItem {
+                      CatagoryId = 6,
+                      AddressId = 2,
+                      TypeId = 1,
+                      EventName = "Wine Tasting",
+                      Description = "The best Wine in Washington state ",
+                      Price = 24.95M,
+                      EventStartTime = Convert.ToDateTime("05/06/2021"),
+                      EventEndTime = Convert.ToDateTime("05/06/2021"),
+                      OrganizerName = " Winebest.org",
+                      OrganzierPhoneNumber = "1-449-197-6460",
+                      EventImageUrl = "http://externaleventbaseurltoberplaced/api/pic/9" }
+            };
+        }
+
+      
     }
 }
 
