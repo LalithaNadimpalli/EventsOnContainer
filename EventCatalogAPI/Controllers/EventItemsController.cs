@@ -1,4 +1,5 @@
 ﻿using EventCatalogAPI.Data;
+using EventCatalogAPI.Domain;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -62,6 +63,32 @@ namespace EventCatalogAPI.Controllers
 
             return Ok(events);
         }
+        [HttpGet("[action]")]
+        public async Task<IActionResult> EventTypes()
+        {
+            var types = await _context.EventTypes.ToListAsync();
+            return Ok(types);
+        }
+        [HttpGet("[action]")]
+        public async Task<IActionResult> FilteredTypes(
+            int? eventTypeId,
+           [FromQuery] int pageIndex = 0,
+           [FromQuery] int pageSize = 5)
+        {
+            var query = (IQueryable<EventItem>)_context.EventItems;
+            if (eventTypeId.HasValue)
+            {
+                query = query.Where(t => t.TypeId == eventTypeId);
+            }
 
+            var types = await query
+                    .OrderBy(t => t.EventName)
+                    .Skip(pageIndex * pageSize)
+                    .Take(pageSize)
+                    .ToListAsync();
+            return Ok(types);
+
+        }
     }
+
 }
