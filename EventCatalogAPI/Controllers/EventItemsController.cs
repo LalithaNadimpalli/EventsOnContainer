@@ -43,12 +43,16 @@ namespace EventCatalogAPI.Controllers
         //Sorts event by month
         [HttpGet]
         [Route("[action]/{month}")]
-        public async Task<IActionResult> FilterByMonth(
-            [FromQuery] int month)
+        public async Task<IActionResult> FilterByMonth(int? month)
         {
-            var events = await _context.EventItems
-                .Where(d => d.EventStartTime.Date.Month == month)
-                .OrderBy(d => d.EventStartTime)
+            var query = (IQueryable<EventItem>)_context.EventItems;
+            if (month.HasValue)
+            {
+                query = query.Where(e => e.EventStartTime.Month == month);
+            }
+
+            var events = await query
+                .OrderBy(e => e.EventStartTime)
                 .ToListAsync();
 
             return Ok(events);
@@ -56,17 +60,18 @@ namespace EventCatalogAPI.Controllers
 
         //filters events by specific date
         [HttpGet]
-        [Route("[action]")]
-        public async Task<IActionResult> FilterByDate(
-            [FromQuery] string month,
-            [FromQuery] int day,
-            [FromQuery] int year)
+        [Route("[action]/{day}-{month}-{year}")]
+        public async Task<IActionResult> FilterByDate(int? day, int? month, int? year)
         {
-            var events = await _context.EventItems
-                .Where(d => d.EventStartTime.ToString("MMMM") == month)
-                .Where(d => d.EventStartTime.Day == day)
-                .Where(d => d.EventStartTime.Year == year)
-                .OrderBy(d => d.EventStartTime)
+            var query = (IQueryable<EventItem>)_context.EventItems;
+            if (day.HasValue && month.HasValue && year.HasValue)
+            {
+                query = query.Where(e => e.EventStartTime.Day == day)
+                             .Where(e => e.EventStartTime.Month == month)
+                             .Where(e => e.EventStartTime.Year == year);
+            }
+
+            var events = await query
                 .ToListAsync();
 
             return Ok(events);
