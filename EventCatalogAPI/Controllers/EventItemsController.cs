@@ -77,9 +77,9 @@ namespace EventCatalogAPI.Controllers
         }
 
         //EventTypes Filter
-        [HttpGet("[action]")]
-        public async Task<IActionResult> FilteredTypes(
-            int? eventTypeId,
+        [HttpGet("[action]/{eventTypeId}")]
+        public async Task<IActionResult> EventTypes(
+           int? eventTypeId,
            [FromQuery] int pageIndex = 0,
            [FromQuery] int pageSize = 5)
         {
@@ -107,8 +107,8 @@ namespace EventCatalogAPI.Controllers
         }
 
         [HttpGet]
-        [Route("[action]")]
-        public async Task<IActionResult> FilteredCategories(int? eventCategoryId,
+        [Route("[action]/{eventCategoryId}")]
+        public async Task<IActionResult> EventCategories(int? eventCategoryId,
             [FromQuery] int pageIndex = 0,
             [FromQuery] int pageSize = 4)
 
