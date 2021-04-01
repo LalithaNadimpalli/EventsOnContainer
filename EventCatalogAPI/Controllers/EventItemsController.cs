@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -28,23 +29,25 @@ namespace EventCatalogAPI.Controllers
         }
 
         //Re-orders events by date - oldest to newest
-        [HttpGet("action")]
+        [HttpGet]
+        [Route("[action]")]
         public async Task<IActionResult> Dates()
         {
             var events = await _context.EventItems
-                .OrderBy(d => d.EventStartTime)
+                .OrderBy(d => d.EventStartTime.Date)
                 .ToListAsync();
 
             return Ok(events);
         }
 
         //Sorts event by month
-        [HttpGet("action")]
+        [HttpGet]
+        [Route("[action]/{month}")]
         public async Task<IActionResult> FilterByMonth(
-            [FromQuery] string month)
+            [FromQuery] int month)
         {
             var events = await _context.EventItems
-                .Where(d => d.EventStartTime.ToString("MMMM") == month)
+                .Where(d => d.EventStartTime.Date.Month == month)
                 .OrderBy(d => d.EventStartTime)
                 .ToListAsync();
 
@@ -52,7 +55,8 @@ namespace EventCatalogAPI.Controllers
         }
 
         //filters events by specific date
-        [HttpGet("action")]
+        [HttpGet]
+        [Route("[action]")]
         public async Task<IActionResult> FilterByDate(
             [FromQuery] string month,
             [FromQuery] int day,
