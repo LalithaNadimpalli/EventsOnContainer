@@ -67,12 +67,16 @@ namespace EventCatalogAPI.Controllers
 
             return Ok(events);
         }
+
+        //EventTypes
         [HttpGet("[action]")]
         public async Task<IActionResult> EventTypes()
         {
             var types = await _context.EventTypes.ToListAsync();
             return Ok(types);
         }
+
+        //EventTypes Filter
         [HttpGet("[action]")]
         public async Task<IActionResult> FilteredTypes(
             int? eventTypeId,
@@ -84,16 +88,21 @@ namespace EventCatalogAPI.Controllers
             {
                 query = query.Where(t => t.TypeId == eventTypeId);
             }
+            var types = await query
+                    .OrderBy(t => t.EventName)
+                    .Skip(pageIndex * pageSize)
+                    .Take(pageSize)
+                    .ToListAsync();
+            return Ok(types);
 
+        }
 
-       
-      
         //Sort and filter Event by Category 
         [HttpGet]
         [Route("[action]")]
         public async Task<IActionResult> EventCategories()
         {
-            var events = await _context.EvenItems.ToListAsync();
+            var events = await _context.EventItems.ToListAsync();
             return Ok(events);
         }
 
@@ -104,16 +113,16 @@ namespace EventCatalogAPI.Controllers
             [FromQuery] int pageSize = 4)
 
         {
-            var query =(IQueryable<EventItem>)_context.EventItems;
+            var query = (IQueryable<EventItem>)_context.EventItems;
             if (eventCategoryId.HasValue)
 
             {
-                query = query.Where(c=>c.CatagoryId==eventCategoryId);
+                query = query.Where(c => c.CatagoryId == eventCategoryId);
             }
-     
+
 
             var events = await _context.EventItems
-                   
+
                     .OrderBy(c => c.EventCategory)
                     .Skip(pageIndex * pageSize)
                     .Take(pageSize)
@@ -121,8 +130,12 @@ namespace EventCatalogAPI.Controllers
 
             return Ok(events);
         }
-
     }
-
+    
 }
 
+            
+
+        
+
+    
