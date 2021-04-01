@@ -130,6 +130,35 @@ namespace EventCatalogAPI.Controllers
 
             return Ok(events);
         }
+
+        //Get ADressess
+        [HttpGet("[action]")]
+        public async Task<IActionResult> Addresses()
+        {
+            var addresses = await _context.Addresses.ToListAsync();
+            return Ok(addresses);
+        }
+
+        //Address Filter
+        [HttpGet("[action]/Filtered/{addressid}")]
+        public async Task<IActionResult> Addresses(
+            int? addressid,
+           [FromQuery] int pageIndex = 0,
+           [FromQuery] int pageSize = 5)
+        {
+            var query = (IQueryable<EventItem>)_context.EventItems;
+            if (addressid.HasValue)
+            {
+                query = query.Where(t => t.AddressId == addressid);
+            }
+            var events = await query
+                    .OrderBy(t => t)
+                    .Skip(pageIndex * pageSize)
+                    .Take(pageSize)
+                    .ToListAsync();
+            return Ok(events);
+
+        }
     }
     
 }
