@@ -12,7 +12,7 @@ namespace EventCatalogAPI.Data
     {
         public static void Seed(EventContext eventContext)
         {
-            //eventContext.Database.Migrate();
+            eventContext.Database.Migrate();
             //we are checking whether the database is created or not in the below line.
             //catalogContext.Database.EnsureCreated();
             //Below Line checks the database, if it has any rows
@@ -22,17 +22,17 @@ namespace EventCatalogAPI.Data
                 //Until We save changes, it will not commit or create table.
                 eventContext.SaveChanges();
             }
-            if (eventContext.EventTypes.Any()) //EventTypes Table
+            if (!eventContext.EventTypes.Any()) //EventTypes Table
             {
                 eventContext.EventTypes.AddRange(GetEventTypes());
                 eventContext.SaveChanges();
             }
-            if (eventContext.EventCategories.Any()) //EventCategories Table
+            if (!eventContext.EventCategories.Any()) //EventCategories Table
             {
                 eventContext.EventCategories.AddRange(GetEventCategories());
                 eventContext.SaveChanges();
             }
-            if (eventContext.EventItems.Any()) //EVentItems Table
+            if (!eventContext.EventItems.Any()) //EVentItems Table
             {
                 eventContext.EventItems.AddRange(GetEventItems());
                 eventContext.SaveChanges();
@@ -142,7 +142,7 @@ namespace EventCatalogAPI.Data
                        OrganzierPhoneNumber = "1-449-197-6460",
                        EventImageUrl = "http://externaleventbaseurltoberplaced/api/pic/5"},
                  new EventItem {
-                       CatagoryId = 12,
+                       CatagoryId = 11,
                        AddressId = 2,
                        TypeId = 3,
                        EventName="Medical conference",
