@@ -17,6 +17,10 @@ namespace EventCatalogAPI.Controllers
     {
         private readonly EventContext _context;
         private readonly IConfiguration _config;
+        private object eventCategoryId;
+        private object eventCategoryID;
+        private object await_context;
+
         public EventItemsController(EventContext context, IConfiguration config)
         {
             _context = context;
@@ -81,14 +85,44 @@ namespace EventCatalogAPI.Controllers
                 query = query.Where(t => t.TypeId == eventTypeId);
             }
 
-            var types = await query
-                    .OrderBy(t => t.EventName)
+
+       
+      
+        //Sort and filter Event by Category 
+        [HttpGet]
+        [Route("[action]")]
+        public async Task<IActionResult> EventCategories()
+        {
+            var events = await _context.EvenItems.ToListAsync();
+            return Ok(events);
+        }
+
+        [HttpGet]
+        [Route("[action]")]
+        public async Task<IActionResult> FilteredCategories(int? eventCategoryId,
+            [FromQuery] int pageIndex = 0,
+            [FromQuery] int pageSize = 4)
+
+        {
+            var query =(IQueryable<EventItem>)_context.EventItems;
+            if (eventCategoryId.HasValue)
+
+            {
+                query = query.Where(c=>c.CatagoryId==eventCategoryId);
+            }
+     
+
+            var events = await _context.EventItems
+                   
+                    .OrderBy(c => c.EventCategory)
                     .Skip(pageIndex * pageSize)
                     .Take(pageSize)
                     .ToListAsync();
-            return Ok(types);
 
+            return Ok(events);
         }
+
     }
 
 }
+
