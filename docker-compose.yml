@@ -23,7 +23,7 @@ services:
     networks:
      - frontend
      - backend
-    container_name: productserver
+    container_name: EventProductserver
 
 
 

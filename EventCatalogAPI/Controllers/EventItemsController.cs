@@ -189,11 +189,13 @@ namespace EventCatalogAPI.Controllers
             items = ChangeImageUrl(items);
             return Ok(items);
         }
-        private List<EventItem> ChangeImageUrl(List<EventItem> items)
+        private List<EventItem> ChangeImageUrl(List<EventItem> query)
         {
-            items.ForEach(item => item.EventImageUrl.Replace("http://externaleventbaseurltoberplaced",
-                _config["ExternalCatalogBaseUrl"]));
-            return items;
+            query.ForEach(item =>
+               item.EventImageUrl = item.EventImageUrl.
+               Replace("http://externaleventbaseurltoberplaced",
+              _config["ExternalBaseUrl"]));
+            return query;
         }
 
     }
