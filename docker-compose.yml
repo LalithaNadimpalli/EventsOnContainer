@@ -11,9 +11,9 @@ services:
       context: .\EventCatalogAPI
       dockerfile: Dockerfile
     environment:
-      ExternalBaseUrl: http://localhost:7810
+      ExternalCatalogBaseUrl: http://localhost:7810
       DatabaseServer: mssqlserver
-      DatabaseName: EventDBdocker
+      DatabaseName: EventDB
       DatabaseUser: sa
       DatabasePassword: P@ssword(!)
     ports:
@@ -21,8 +21,8 @@ services:
     depends_on:
       - mssqlserver
     networks:
-     - frontend
-     - backend
+      - frontend
+      - backend
     container_name: EventProductserver
 
 
@@ -33,7 +33,7 @@ services:
       ACCEPT_EULA: Y
       SA_PASSWORD: P@ssword(!)
     ports:
-     - "1448:1433"
+      - "1448:1433"
     container_name: mssqlserver
     networks:
       - backend
