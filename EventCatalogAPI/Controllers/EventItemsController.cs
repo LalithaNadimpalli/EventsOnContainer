@@ -194,7 +194,7 @@ namespace EventCatalogAPI.Controllers
             query.ForEach(item =>
                item.EventImageUrl = item.EventImageUrl.
                Replace("http://externaleventbaseurltoberplaced",
-              _config["ExternalBaseUrl"]));
+              _config["ExternalCatalogBaseUrl"]));
             return query;
         }
 
