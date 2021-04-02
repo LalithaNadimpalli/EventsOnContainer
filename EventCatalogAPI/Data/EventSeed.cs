@@ -13,26 +13,23 @@ namespace EventCatalogAPI.Data
         public static void Seed(EventContext eventContext)
         {
             eventContext.Database.Migrate();
-            //we are checking whether the database is created or not in the below line.
-            //catalogContext.Database.EnsureCreated();
-            //Below Line checks the database, if it has any rows
-            if (!eventContext.Addresses.Any()) //EventAddress Table
+
+            if (!eventContext.Addresses.Any())
             {
                 eventContext.Addresses.AddRange(GetAddress());
-                //Until We save changes, it will not commit or create table.
                 eventContext.SaveChanges();
             }
-            if (!eventContext.EventTypes.Any()) //EventTypes Table
+            if (!eventContext.EventTypes.Any())
             {
                 eventContext.EventTypes.AddRange(GetEventTypes());
                 eventContext.SaveChanges();
             }
-            if (!eventContext.EventCategories.Any()) //EventCategories Table
+            if (!eventContext.EventCategories.Any())
             {
                 eventContext.EventCategories.AddRange(GetEventCategories());
                 eventContext.SaveChanges();
             }
-            if (!eventContext.EventItems.Any()) //EVentItems Table
+            if (!eventContext.EventItems.Any())
             {
                 eventContext.EventItems.AddRange(GetEventItems());
                 eventContext.SaveChanges();
@@ -42,13 +39,72 @@ namespace EventCatalogAPI.Data
         {
             return new List<EventType>()
             {
-                new EventType() { Type= "Online"},
-                new EventType() { Type= "Inperson"},
-                new EventType() { Type= "Online&Inperson"},
-             
+                new EventType() { Type = "Online"},
+                new EventType() { Type = "In person"},
+                new EventType() { Type = "Online & In person"},
+
             };
         }
 
+
+        private static IEnumerable<EventAddress> GetAddress()
+        {
+            return new List<EventAddress>
+            {
+                new EventAddress
+                {
+                    City = " Woodinville", State = "WA ", ZipCode =98055  , StreetAddress = " 12345 SE 100th Eve"
+                },
+                new EventAddress
+                {
+                    City = " Redmond", State = "WA ", ZipCode =98011  , StreetAddress = " 12463 NE 109th Eve"
+                },
+                new EventAddress
+                {
+                    City = " Bellevue", State = "WA ", ZipCode =98076  , StreetAddress = " 12100 SE 201st way"
+                },
+                new EventAddress
+                {
+                    City = " Seattle", State = "WA ", ZipCode =98030  , StreetAddress = " 12302 SE 108th Eve"
+                },
+                new EventAddress
+                {
+                    City = " Renton", State = "WA ", ZipCode =98044  , StreetAddress = " 12903 SE 202nd way"
+                },
+                new EventAddress
+                {
+                    City = " Bellevue", State = "WA ", ZipCode =98046  , StreetAddress = " 12908 NE 102nd way"
+                },
+                new EventAddress
+                {
+                    City = " Sammamish", State = "WA ", ZipCode =98350  , StreetAddress = " 12803 SE 113th St"
+                },
+                new EventAddress
+                {
+                    City = " Seattle", State = "WA ", ZipCode =98121  , StreetAddress = " 12460 NE 106th way"
+                }
+            };
+        }
+
+        private static IEnumerable<EventCategory> GetEventCategories()
+        {
+            return new List<EventCategory>()
+            {
+                new EventCategory { Category = "Music" },
+                new EventCategory { Category = "Sports" },
+                new EventCategory { Category = "Food and Drink" },
+                new EventCategory { Category = "Book Club" },
+                new EventCategory { Category = "Kids Festival" },
+                new EventCategory { Category = "Business" },
+                new EventCategory { Category = "Job Fair" },
+                new EventCategory { Category = "Movies" },
+                new EventCategory { Category = "Tech" },
+                new EventCategory { Category = "Car Show" },
+                new EventCategory { Category = "Festival" },
+                new EventCategory { Category = "Other" }
+
+            };
+        }
         private static IEnumerable<EventItem> GetEventItems()
         {
             return new List<EventItem>()
@@ -142,7 +198,7 @@ namespace EventCatalogAPI.Data
                        OrganzierPhoneNumber = "1-449-197-6460",
                        EventImageUrl = "http://externaleventbaseurltoberplaced/api/pic/5"},
                  new EventItem {
-                       CatagoryId = 11,
+                       CatagoryId = 12,
                        AddressId = 2,
                        TypeId = 3,
                        EventName="Medical conference",
@@ -192,73 +248,16 @@ namespace EventCatalogAPI.Data
             };
         }
 
-        private static IEnumerable<EventAddress> GetAddress()
-        {
-            return new List<EventAddress>
-            {
-                new EventAddress
-                {
-                    City = " Woodinville", State = "WA ", ZipCode =98055  , StreetAddress = " 12345 SE 100th Eve"
-                },
-                new EventAddress
-                {
-                    City = " Redmond", State = "WA ", ZipCode =98011  , StreetAddress = " 12463 NE 109th Eve"
-                },
-                new EventAddress
-                {
-                    City = " Bellevue", State = "WA ", ZipCode =98076  , StreetAddress = " 12100 SE 201st way"
-                },
-                new EventAddress
-                {
-                    City = " Seattle", State = "WA ", ZipCode =98030  , StreetAddress = " 12302 SE 108th Eve"
-                },
-                new EventAddress
-                {
-                    City = " Renton", State = "WA ", ZipCode =98044  , StreetAddress = " 12903 SE 202nd way"
-                },
-                new EventAddress
-                {
-                    City = " Bellevue", State = "WA ", ZipCode =98046  , StreetAddress = " 12908 NE 102nd way"
-                },
-                new EventAddress
-                {
-                    City = " Sammamish", State = "WA ", ZipCode =98350  , StreetAddress = " 12803 SE 113th St"
-                },
-                new EventAddress
-                {
-                    City = " Seattle", State = "WA ", ZipCode =98121  , StreetAddress = " 12460 NE 106th way"
-                }
-            };
-        }
-        
-        private static IEnumerable<EventCategory> GetEventCategories()
-        {
-            return new List<EventCategory>()
-            {
-                new EventCategory { Category = "Music" },
-                new EventCategory { Category = "Sports" },
-                new EventCategory { Category = "Food and Drink" },
-                new EventCategory { Category = "Book Club" },
-                new EventCategory { Category = "Kids Festival" },
-                new EventCategory { Category = "Business" },
-                new EventCategory { Category = "Job Fair" },
-                new EventCategory { Category = "Movies" },
-                new EventCategory { Category = "Tech" },
-                new EventCategory { Category = "Car Show" },
-                new EventCategory { Category = "Other" }
 
-            };
-        }
-           
     }
 }
 
-            
-            
-        
-    
 
-   
 
-   
+
+
+
+
+
+
 

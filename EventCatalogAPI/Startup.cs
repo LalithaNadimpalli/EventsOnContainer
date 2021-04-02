@@ -28,7 +28,13 @@ namespace EventCatalogAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            var connectionString = Configuration["ConnectionString"];
+            // var connectionString = Configuration["ConnectionString"];
+            var DatabaseServer = Configuration["DatabaseServer"];
+            var DatabaseName = Configuration["DatabaseName"];
+            var DatabaseUser = Configuration["DatabaseUser"];
+            var DatabasePassword = Configuration["DatabasePassword"];
+            var connectionString = $"Server={DatabaseServer};Database={DatabaseName};User Id={DatabaseUser};Password={DatabasePassword}";
+
             services.AddDbContext<EventContext>(options => options.UseSqlServer(connectionString));
         }
 
