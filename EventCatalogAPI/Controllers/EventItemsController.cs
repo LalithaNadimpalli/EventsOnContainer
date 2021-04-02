@@ -17,11 +17,7 @@ namespace EventCatalogAPI.Controllers
     public class EventItemsController : ControllerBase
     {
         private readonly EventContext _context;
-        private readonly IConfiguration _config;
-        private object eventCategoryId;
-        private object eventCategoryID;
-        private object await_context;
-
+        private readonly IConfiguration _config;       
         public EventItemsController(EventContext context, IConfiguration config)
         {
             _context = context;
@@ -149,24 +145,34 @@ namespace EventCatalogAPI.Controllers
         }
 
         //Address Filter
-        [HttpGet("[action]/Filtered/{addressid}")]
+        [HttpGet("[action]/Filtered/{zipcode}")]
         public async Task<IActionResult> Addresses(
-            int? addressid,
+            int? zipcode,
            [FromQuery] int pageIndex = 0,
            [FromQuery] int pageSize = 5)
+            
         {
-            var query = (IQueryable<EventItem>)_context.EventItems;
-            if (addressid.HasValue)
+            if (zipcode.HasValue)
             {
-                query = query.Where(t => t.AddressId == addressid);
-            }
-            var events = await query
-                    .OrderBy(t => t)
-                    .Skip(pageIndex * pageSize)
-                    .Take(pageSize)
-                    .ToListAsync();
-            return Ok(events);
+                var query = await _context.EventItems.Join(_context.Addresses.Where(x => x.ZipCode == zipcode), eventItem => eventItem.AddressId,
+              address => address.Id, (eventItem, address) => new
+              {
 
+                  eventId = eventItem.Id,
+                  address = eventItem.Address,
+                  eventName = eventItem.EventName,
+                  description = eventItem.Description,
+                  price = eventItem.Price,
+                  eventImage = eventItem.EventImageUrl,
+                  startTime = eventItem.EventStartTime,
+                  endTime = eventItem.EventEndTime,
+                  typeId = eventItem.TypeId,
+                  categoryId = eventItem.CatagoryId
+              }).ToListAsync();
+
+                return Ok(query);
+            }
+            return Ok();        
         }
     }
     
