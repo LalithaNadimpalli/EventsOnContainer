@@ -17,7 +17,7 @@ namespace EventCatalogAPI.Controllers
     public class EventItemsController : ControllerBase
     {
         private readonly EventContext _context;
-        private readonly IConfiguration _config;       
+        private readonly IConfiguration _config;
         public EventItemsController(EventContext context, IConfiguration config)
         {
             _context = context;
@@ -150,7 +150,7 @@ namespace EventCatalogAPI.Controllers
             int? zipcode,
            [FromQuery] int pageIndex = 0,
            [FromQuery] int pageSize = 5)
-            
+
         {
             if (zipcode.HasValue)
             {
@@ -172,10 +172,31 @@ namespace EventCatalogAPI.Controllers
 
                 return Ok(query);
             }
-            return Ok();        
+            return Ok();
         }
+
+
+        [HttpGet("[action]")]
+        public async Task<IActionResult> Items(
+              [FromQuery] int pageIdex = 0,
+              [FromQuery] int pageSize = 4)
+        {
+            var items = await _context.EventItems
+                .OrderBy(e => e.EventName)
+                .Skip(pageIdex * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+            items = ChangeImageUrl(items);
+            return Ok(items);
+        }
+        private List<EventItem> ChangeImageUrl(List<EventItem> items)
+        {
+            items.ForEach(item => item.EventImageUrl.Replace("http://externaleventbaseurltoberplaced",
+                _config["ExternalCatalogBaseUrl"]));
+            return items;
+        }
+
     }
-    
 }
 
             
