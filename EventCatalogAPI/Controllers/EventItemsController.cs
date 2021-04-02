@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -28,41 +29,49 @@ namespace EventCatalogAPI.Controllers
         }
 
         //Re-orders events by date - oldest to newest
-        [HttpGet("action")]
+        [HttpGet]
+        [Route("[action]")]
         public async Task<IActionResult> Dates()
         {
             var events = await _context.EventItems
-                .OrderBy(d => d.EventStartTime)
+                .OrderBy(d => d.EventStartTime.Date)
                 .ToListAsync();
 
             return Ok(events);
         }
 
         //Sorts event by month
-        [HttpGet("action")]
-        public async Task<IActionResult> FilterByMonth(
-            [FromQuery] string month)
+        [HttpGet]
+        [Route("[action]/{month}")]
+        public async Task<IActionResult> FilterByMonth(int? month)
         {
-            var events = await _context.EventItems
-                .Where(d => d.EventStartTime.ToString("MMMM") == month)
-                .OrderBy(d => d.EventStartTime)
+            var query = (IQueryable<EventItem>)_context.EventItems;
+            if (month.HasValue)
+            {
+                query = query.Where(e => e.EventStartTime.Month == month);
+            }
+
+            var events = await query
+                .OrderBy(e => e.EventStartTime)
                 .ToListAsync();
 
             return Ok(events);
         }
 
         //filters events by specific date
-        [HttpGet("action")]
-        public async Task<IActionResult> FilterByDate(
-            [FromQuery] string month,
-            [FromQuery] int day,
-            [FromQuery] int year)
+        [HttpGet]
+        [Route("[action]/{day}-{month}-{year}")]
+        public async Task<IActionResult> FilterByDate(int? day, int? month, int? year)
         {
-            var events = await _context.EventItems
-                .Where(d => d.EventStartTime.ToString("MMMM") == month)
-                .Where(d => d.EventStartTime.Day == day)
-                .Where(d => d.EventStartTime.Year == year)
-                .OrderBy(d => d.EventStartTime)
+            var query = (IQueryable<EventItem>)_context.EventItems;
+            if (day.HasValue && month.HasValue && year.HasValue)
+            {
+                query = query.Where(e => e.EventStartTime.Day == day)
+                             .Where(e => e.EventStartTime.Month == month)
+                             .Where(e => e.EventStartTime.Year == year);
+            }
+
+            var events = await query
                 .ToListAsync();
 
             return Ok(events);
