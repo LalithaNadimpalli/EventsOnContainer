@@ -32,6 +32,7 @@ namespace EventCatalogAPI.Controllers
             var events = await _context.EventItems
                 .OrderBy(d => d.EventStartTime.Date)
                 .ToListAsync();
+            events = ChangeImageUrl(events);
 
             return Ok(events);
         }
@@ -50,6 +51,7 @@ namespace EventCatalogAPI.Controllers
             var events = await query
                 .OrderBy(e => e.EventStartTime)
                 .ToListAsync();
+            events = ChangeImageUrl(events);
 
             return Ok(events);
         }
@@ -69,6 +71,7 @@ namespace EventCatalogAPI.Controllers
 
             var events = await query
                 .ToListAsync();
+            events = ChangeImageUrl(events);
 
             return Ok(events);
         }
@@ -98,6 +101,8 @@ namespace EventCatalogAPI.Controllers
                     .Skip(pageIndex * pageSize)
                     .Take(pageSize)
                     .ToListAsync();
+            types = ChangeImageUrl(types);
+
             return Ok(types);
 
         }
@@ -126,12 +131,13 @@ namespace EventCatalogAPI.Controllers
             }
 
 
-            var events = await _context.EventItems
+            var events = await query
 
                     .OrderBy(c => c.EventCategory)
                     .Skip(pageIndex * pageSize)
                     .Take(pageSize)
                     .ToListAsync();
+            events = ChangeImageUrl(events);
 
             return Ok(events);
         }
@@ -191,13 +197,13 @@ namespace EventCatalogAPI.Controllers
             items = ChangeImageUrl(items);
             return Ok(items);
         }
-        private List<EventItem> ChangeImageUrl(List<EventItem> query)
+        private List<EventItem> ChangeImageUrl(List<EventItem> items)
         {
-            query.ForEach(item =>
+            items.ForEach(item =>
                item.EventImageUrl = item.EventImageUrl.
                Replace("http://externaleventbaseurltoberplaced",
               _config["ExternalCatalogBaseUrl"]));
-            return query;
+            return items;
         }
 
     }
