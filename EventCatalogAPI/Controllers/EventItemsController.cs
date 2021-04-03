@@ -112,7 +112,7 @@ namespace EventCatalogAPI.Controllers
         [Route("[action]")]
         public async Task<IActionResult> EventCategories()
         {
-            var events = await _context.EventItems.ToListAsync();
+            var events = await _context.EventCategories.ToListAsync();
             return Ok(events);
         }
 
