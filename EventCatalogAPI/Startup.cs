@@ -28,7 +28,7 @@ namespace EventCatalogAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            // var connectionString = Configuration["ConnectionString"];
+            //var connectionString = Configuration["ConnectionString"];
             var DatabaseServer = Configuration["DatabaseServer"];
             var DatabaseName = Configuration["DatabaseName"];
             var DatabaseUser = Configuration["DatabaseUser"];

@@ -1,4 +1,4 @@
-﻿using EventCatalogAPI.Data;
+﻿ using EventCatalogAPI.Data;
 using EventCatalogAPI.Domain;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -145,16 +145,16 @@ namespace EventCatalogAPI.Controllers
         }
 
         //Address Filter
-        [HttpGet("[action]/Filtered/{zipcode}")]
+        [HttpGet("[action]/Filtered/{city}")]
         public async Task<IActionResult> Addresses(
-            int? zipcode,
+            string city,
            [FromQuery] int pageIndex = 0,
            [FromQuery] int pageSize = 5)
 
         {
-            if (zipcode.HasValue)
+            if (city != null && city.Length != 0)
             {
-                var query = await _context.EventItems.Join(_context.Addresses.Where(x => x.ZipCode == zipcode), eventItem => eventItem.AddressId,
+                var items = await _context.EventItems.Join(_context.Addresses.Where(x => x.City.Equals(city)), eventItem => eventItem.AddressId,
               address => address.Id, (eventItem, address) => new
               {
 
@@ -163,15 +163,17 @@ namespace EventCatalogAPI.Controllers
                   eventName = eventItem.EventName,
                   description = eventItem.Description,
                   price = eventItem.Price,
-                  eventImage = eventItem.EventImageUrl,
+                  eventImage = eventItem.EventImageUrl.Replace("http://externaleventbaseurltoberplaced",
+                    _config["ExternalCatalogBaseUrl"]),
                   startTime = eventItem.EventStartTime,
                   endTime = eventItem.EventEndTime,
                   typeId = eventItem.TypeId,
-                  categoryId = eventItem.CatagoryId
-              }).ToListAsync();
-
-                return Ok(query);
+                  categoryId = eventItem.CatagoryId}).ToListAsync();           
+                    return Ok(items);                
             }
+          
+
+           
             return Ok();
         }
 
