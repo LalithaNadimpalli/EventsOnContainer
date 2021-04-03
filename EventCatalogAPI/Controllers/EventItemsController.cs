@@ -155,7 +155,7 @@ namespace EventCatalogAPI.Controllers
         public async Task<IActionResult> Addresses(
             string city,
            [FromQuery] int pageIndex = 0,
-           [FromQuery] int pageSize = 5)
+           [FromQuery] int pageSize = 4)
 
         {
             if (city != null && city.Length != 0)
@@ -174,7 +174,9 @@ namespace EventCatalogAPI.Controllers
                   startTime = eventItem.EventStartTime,
                   endTime = eventItem.EventEndTime,
                   typeId = eventItem.TypeId,
-                  categoryId = eventItem.CatagoryId}).ToListAsync();           
+                  categoryId = eventItem.CatagoryId}).OrderBy(c => c.eventId)
+                    .Skip(pageIndex * pageSize)
+                    .Take(pageSize).ToListAsync();           
                     return Ok(items);                
             }
           
@@ -186,12 +188,12 @@ namespace EventCatalogAPI.Controllers
 
         [HttpGet("[action]")]
         public async Task<IActionResult> Items(
-              [FromQuery] int pageIdex = 0,
+              [FromQuery] int pageIndex = 0,
               [FromQuery] int pageSize = 4)
         {
             var items = await _context.EventItems
-                .OrderBy(e => e.EventName)
-                .Skip(pageIdex * pageSize)
+                .OrderBy(e => e.Id)
+                .Skip(pageIndex * pageSize)
                 .Take(pageSize)
                 .ToListAsync();
             items = ChangeImageUrl(items);
