@@ -174,14 +174,15 @@ namespace EventCatalogAPI.Controllers
                   startTime = eventItem.EventStartTime,
                   endTime = eventItem.EventEndTime,
                   typeId = eventItem.TypeId,
-                  categoryId = eventItem.CatagoryId}).OrderBy(c => c.eventId)
+                  categoryId = eventItem.CatagoryId
+              }).OrderBy(c => c.eventId)
                     .Skip(pageIndex * pageSize)
-                    .Take(pageSize).ToListAsync();           
-                    return Ok(items);                
+                    .Take(pageSize).ToListAsync();
+                return Ok(items);
             }
-          
 
-           
+
+
             return Ok();
         }
 
@@ -208,8 +209,45 @@ namespace EventCatalogAPI.Controllers
             return items;
         }
 
+        [HttpGet("[action]/Catagory/{catagoryId}/Type{typeId}")]
+        public async Task<IActionResult> Items(
+               [FromQuery] int? catagoryId,
+               [FromQuery] int? typeId,
+               [FromQuery] int pageIndx = 0,
+               [FromQuery] int pagesize = 6)
+        {
+
+            var query = (IQueryable<EventItem>)_context.EventItems;
+            if (catagoryId.HasValue)
+            {
+                query = query.Where(i => i.CatagoryId == catagoryId);
+            }
+            if (typeId.HasValue)
+            {
+                query = query.Where(i => i.TypeId == typeId);
+            }
+            var itemCount = query.LongCountAsync();
+            var result = await query
+                              .OrderBy(s => s.EventName)
+                              .Skip(pageIndx * pagesize)
+                              .Take(pagesize)
+                              .ToListAsync();
+            result = ChangeImageUrl(result);
+            //var model = new PaginatedItemViewModel<EventItem>
+            //{
+            //    PageIndex = pageIndx,
+            //    PageSize = result.Count,
+            //    ItemCount = (int)itemCount.Result,
+            //    Data = result
+            //};
+
+
+            return Ok(result);
+
+        }
     }
 }
+
 
             
 
