@@ -16,8 +16,8 @@ namespace EventCatalogAPI.Controllers
     [ApiController]
     public class EventItemsController : ControllerBase
     {
-        private readonly EventContext _context;
-        private readonly IConfiguration _config;
+         private readonly EventContext _context;
+         private readonly IConfiguration _config;
         public EventItemsController(EventContext context, IConfiguration config)
         {
             _context = context;

@@ -12,7 +12,7 @@ namespace WebMvc.Infrastructure
         private readonly HttpClient _client;
         public CustomHttpClient()
         {
-            _client = new HttpClient();
+             _client = new HttpClient();
         }
 
         public async Task<string> GetStringAsync(string uri,
