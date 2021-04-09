@@ -23,7 +23,7 @@ namespace WebMvc.Controllers
 
             var catalog = await _service.GetCatalogItemsAsync(page ?? 0, itemsOnPage, brandFilterApplied, typesFilterApplied);
 
-            var vm = new CatalogIndexViewModel
+            var vm = new EventIndexViewModel
             {
                 CatalogItems = catalog.Data,
                 Brands = await _service.GetBrandsAsync(),
