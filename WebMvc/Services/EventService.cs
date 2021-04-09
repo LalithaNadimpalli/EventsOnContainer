@@ -47,11 +47,11 @@ namespace WebMvc.Services
             return items;
         }
 
-        public async Task<Catalog> GetEventItemsAsync(int page, int size, int? category, int? type)
+        public async Task<Event> GetEventItemsAsync(int page, int size, int? category, int? type)
         {
             var catalogItemsUri = ApiPaths.Catalog.GetAllCatalogItems(_baseUrl, page, size, category, type);
             var dataString = await _client.GetStringAsync(catalogItemsUri);
-            return JsonConvert.DeserializeObject<Catalog>(dataString);
+            return JsonConvert.DeserializeObject<Event>(dataString);
         }
 
         public async Task<IEnumerable<SelectListItem>> GetEventTypesAsync()

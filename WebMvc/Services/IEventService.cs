@@ -9,7 +9,7 @@ namespace WebMvc.Services
 {
     public interface IEventService
     {
-        Task<Catalog> GetEventItemsAsync(int page, int size, int? category, int? type);
+        Task<Event> GetEventItemsAsync(int page, int size, int? category, int? type);
         Task<IEnumerable<SelectListItem>> GetCategoryAsync();
         Task<IEnumerable<SelectListItem>> GetEventTypesAsync();
     }
