@@ -7,17 +7,18 @@ namespace WebMvc.Infrastructure
 {
     public static class ApiPaths
     {
-        public static class Catalog
+        public static class Event
+
         {
             public static string GetAllTypes(string baseUri)
             {
                 return $"{baseUri}catalogtypes";
             }
-            public static string GetAllBrands(string baseUri)
+            public static string GetAllCategories(string baseUri)
             {
                 return $"{baseUri}catalogbrands";
             }
-            public static string GetAllCatalogItems(string baseUri, int page, int take, int? brand, int? type)
+            public static string GetAllEventItems(string baseUri, int page, int take, int? brand, int? type)
             {
                 var filterQs = string.Empty;
                 if (brand.HasValue || type.HasValue)

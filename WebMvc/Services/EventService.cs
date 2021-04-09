@@ -18,12 +18,12 @@ namespace WebMvc.Services
 
         public EventService(IConfiguration config, IHttpClient client)
         {
-            _baseUrl = $"{config["CatalogUrl"]}/api/catalog/";
+            _baseUrl = $"{config["EventItemsUrl"]}/api/event/";
             _client = client;
         }
         public async Task<IEnumerable<SelectListItem>> GetCategoryAsync()
         {
-            var brandUri = ApiPaths.Catalog.GetAllBrands(_baseUrl);
+            var brandUri = ApiPaths.Event.GetAllCategories(_baseUrl);
             var dataString = await _client.GetStringAsync(brandUri);
             var items = new List<SelectListItem>
             {
@@ -34,14 +34,14 @@ namespace WebMvc.Services
                     Selected = true
                 }
             };
-            var brands = JArray.Parse(dataString);
-            foreach (var brand in brands)
+            var categories = JArray.Parse(dataString);
+            foreach (var category in categories)
             {
                 items.Add(
                     new SelectListItem
                     {
-                        Value = brand.Value<string>("id"),
-                        Text = brand.Value<string>("brand")
+                        Value = category.Value<string>("id"),
+                        Text = category.Value<string>("category")
                     });
             }
             return items;
@@ -49,14 +49,14 @@ namespace WebMvc.Services
 
         public async Task<Event> GetEventItemsAsync(int page, int size, int? category, int? type)
         {
-            var catalogItemsUri = ApiPaths.Catalog.GetAllCatalogItems(_baseUrl, page, size, category, type);
-            var dataString = await _client.GetStringAsync(catalogItemsUri);
+            var eventItemsUri = ApiPaths.Event.GetAllEventItems(_baseUrl, page, size, category, type);
+            var dataString = await _client.GetStringAsync(eventItemsUri);
             return JsonConvert.DeserializeObject<Event>(dataString);
         }
 
         public async Task<IEnumerable<SelectListItem>> GetEventTypesAsync()
         {
-            var typeUri = ApiPaths.Catalog.GetAllTypes(_baseUrl);
+            var typeUri = ApiPaths.Event.GetAllTypes(_baseUrl);
             var dataString = await _client.GetStringAsync(typeUri);
             var items = new List<SelectListItem>
             {

@@ -245,6 +245,7 @@ namespace EventCatalogAPI.Controllers
                 .Take(pageSize)
                 .ToListAsync();
             items = ChangeImageUrl(items);
+
             var model = new PaginatedItemsViewModel<EventItem>
             {
                 PageIndex = pageIndex,
