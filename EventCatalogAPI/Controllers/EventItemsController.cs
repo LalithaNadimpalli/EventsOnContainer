@@ -1,5 +1,6 @@
 ﻿ using EventCatalogAPI.Data;
 using EventCatalogAPI.Domain;
+using EventCatalogAPI.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -25,22 +26,24 @@ namespace EventCatalogAPI.Controllers
         }
 
         //Re-orders events by date - oldest to newest
-        [HttpGet]
-        [Route("[action]")]
-        public async Task<IActionResult> Dates()
-        {
-            var events = await _context.EventItems
-                .OrderBy(d => d.EventStartTime.Date)
-                .ToListAsync();
-            events = ChangeImageUrl(events);
+        //[HttpGet]
+        //[Route("[action]")]
+        //public async Task<IActionResult> Dates()
+        //{
+        //    var events = await _context.EventItems
+        //        .OrderBy(d => d.EventStartTime.Date)
+        //        .ToListAsync();
+        //    events = ChangeImageUrl(events);
 
-            return Ok(events);
-        }
+        //    return Ok(events);
+        //}
 
         //Sorts event by month
         [HttpGet]
         [Route("[action]/{month}")]
-        public async Task<IActionResult> FilterByMonth(int? month)
+        public async Task<IActionResult> FilterByMonth(int? month,
+            [FromQuery] int pageIndex = 0,
+            [FromQuery] int pageSize = 6)
         {
             var query = (IQueryable<EventItem>)_context.EventItems;
             if (month.HasValue)
@@ -48,18 +51,31 @@ namespace EventCatalogAPI.Controllers
                 query = query.Where(e => e.EventStartTime.Month == month);
             }
 
+            var eventsCount = query.LongCountAsync();
             var events = await query
-                .OrderBy(e => e.EventStartTime)
-                .ToListAsync();
+                    .OrderBy(t => t.EventName)
+                    .Skip(pageIndex * pageSize)
+                    .Take(pageSize)
+                    .ToListAsync();
             events = ChangeImageUrl(events);
 
-            return Ok(events);
+            var model = new PaginatedItemsViewModel<EventItem>
+            {
+                PageIndex = pageIndex,
+                PageSize = events.Count,
+                Count = eventsCount.Result,
+                Data = events
+            };
+
+            return Ok(model);
         }
 
         //filters events by specific date
         [HttpGet]
         [Route("[action]/{day}-{month}-{year}")]
-        public async Task<IActionResult> FilterByDate(int? day, int? month, int? year)
+        public async Task<IActionResult> FilterByDate(int? day, int? month, int? year,
+            [FromQuery] int pageIndex = 0,
+            [FromQuery] int pageSize = 5)
         {
             var query = (IQueryable<EventItem>)_context.EventItems;
             if (day.HasValue && month.HasValue && year.HasValue)
@@ -68,15 +84,26 @@ namespace EventCatalogAPI.Controllers
                              .Where(e => e.EventStartTime.Month == month)
                              .Where(e => e.EventStartTime.Year == year);
             }
-
+            var eventsCount = query.LongCountAsync();
             var events = await query
-                .ToListAsync();
+                    .OrderBy(t => t.EventName)
+                    .Skip(pageIndex * pageSize)
+                    .Take(pageSize)
+                    .ToListAsync();
             events = ChangeImageUrl(events);
 
-            return Ok(events);
+            var model = new PaginatedItemsViewModel<EventItem>
+            {
+                PageIndex = pageIndex,
+                PageSize = events.Count,
+                Count = eventsCount.Result,
+                Data = events
+            };
+
+            return Ok(model);
         }
 
-        //EventTypes
+        //Stays the same for adding webmvc proj
         [HttpGet("[action]")]
         public async Task<IActionResult> EventTypes()
         {
@@ -96,18 +123,28 @@ namespace EventCatalogAPI.Controllers
             {
                 query = query.Where(t => t.TypeId == eventTypeId);
             }
-            var types = await query
+
+            var eventsCount = query.LongCountAsync();
+            var events = await query
                     .OrderBy(t => t.EventName)
                     .Skip(pageIndex * pageSize)
                     .Take(pageSize)
                     .ToListAsync();
-            types = ChangeImageUrl(types);
+            events = ChangeImageUrl(events);
 
-            return Ok(types);
+            var model = new PaginatedItemsViewModel<EventItem>
+            {
+                PageIndex = pageIndex,
+                PageSize = events.Count,
+                Count = eventsCount.Result,
+                Data = events
+            };
+
+            return Ok(model);
 
         }
 
-        //Sort and filter Event by Category 
+        //Stays the same for adding webmvc proj 
         [HttpGet]
         [Route("[action]")]
         public async Task<IActionResult> EventCategories()
@@ -130,7 +167,7 @@ namespace EventCatalogAPI.Controllers
                 query = query.Where(c => c.CatagoryId == eventCategoryId);
             }
 
-
+            var eventsCount = query.LongCountAsync();
             var events = await query
 
                     .OrderBy(c => c.EventCategory)
@@ -139,10 +176,18 @@ namespace EventCatalogAPI.Controllers
                     .ToListAsync();
             events = ChangeImageUrl(events);
 
-            return Ok(events);
+            var model = new PaginatedItemsViewModel<EventItem>
+            {
+                PageIndex = pageIndex,
+                PageSize = events.Count,
+                Count = eventsCount.Result,
+                Data = events
+            };
+
+            return Ok(model);
         }
 
-        //Get ADressess
+        //Stays the same for adding webmvc proj
         [HttpGet("[action]")]
         public async Task<IActionResult> Addresses()
         {
@@ -150,7 +195,8 @@ namespace EventCatalogAPI.Controllers
             return Ok(addresses);
         }
 
-        //Address Filter
+        //Tried to modify this for webmvc integration - did not work in testing
+        //Attempt is on UpdatingAPIs branch
         [HttpGet("[action]/Filtered/{city}")]
         public async Task<IActionResult> Addresses(
             string city,
@@ -191,13 +237,22 @@ namespace EventCatalogAPI.Controllers
               [FromQuery] int pageIndex = 0,
               [FromQuery] int pageSize = 4)
         {
+            var itemsCount = _context.EventItems.LongCountAsync();
+
             var items = await _context.EventItems
-                .OrderBy(e => e.Id)
+                .OrderBy(e => e.EventStartTime.Date)
                 .Skip(pageIndex * pageSize)
                 .Take(pageSize)
                 .ToListAsync();
             items = ChangeImageUrl(items);
-            return Ok(items);
+            var model = new PaginatedItemsViewModel<EventItem>
+            {
+                PageIndex = pageIndex,
+                PageSize = items.Count,
+                Count = itemsCount.Result,
+                Data = items
+            };
+            return Ok(model);
         }
         private List<EventItem> ChangeImageUrl(List<EventItem> items)
         {
