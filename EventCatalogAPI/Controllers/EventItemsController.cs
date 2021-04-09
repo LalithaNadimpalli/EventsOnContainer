@@ -1,5 +1,6 @@
 ﻿ using EventCatalogAPI.Data;
 using EventCatalogAPI.Domain;
+using EventCatalogAPI.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -76,7 +77,7 @@ namespace EventCatalogAPI.Controllers
             return Ok(events);
         }
 
-        //EventTypes
+        //Stays the same for adding webmvc proj
         [HttpGet("[action]")]
         public async Task<IActionResult> EventTypes()
         {
@@ -107,7 +108,7 @@ namespace EventCatalogAPI.Controllers
 
         }
 
-        //Sort and filter Event by Category 
+        //Stays the same for adding webmvc proj
         [HttpGet]
         [Route("[action]")]
         public async Task<IActionResult> EventCategories()
@@ -142,7 +143,7 @@ namespace EventCatalogAPI.Controllers
             return Ok(events);
         }
 
-        //Get ADressess
+        //Stays the same for adding webmvc proj
         [HttpGet("[action]")]
         public async Task<IActionResult> Addresses()
         {
@@ -150,7 +151,7 @@ namespace EventCatalogAPI.Controllers
             return Ok(addresses);
         }
 
-        //Address Filter
+        //Not clear how to update this for webmvc proj
         [HttpGet("[action]/Filtered/{city}")]
         public async Task<IActionResult> Addresses(
             string city,
@@ -185,20 +186,30 @@ namespace EventCatalogAPI.Controllers
             return Ok();
         }
 
-
+        //Test this before merge - updated for webmvc proj
         [HttpGet("[action]")]
         public async Task<IActionResult> Items(
               [FromQuery] int pageIndex = 0,
               [FromQuery] int pageSize = 4)
         {
+            var itemsCount = _context.EventItems.LongCountAsync();
+
             var items = await _context.EventItems
-                .OrderBy(e => e.Id)
+                .OrderBy(e => e.EventStartTime.Date)
                 .Skip(pageIndex * pageSize)
                 .Take(pageSize)
                 .ToListAsync();
             items = ChangeImageUrl(items);
-            return Ok(items);
+            var model = new PaginatedItemsViewModel<EventItem>
+            {
+                PageIndex = pageIndex,
+                PageSize = items.Count,
+                Count = itemsCount.Result,
+                Data = items
+            };
+            return Ok(model);
         }
+
         private List<EventItem> ChangeImageUrl(List<EventItem> items)
         {
             items.ForEach(item =>
