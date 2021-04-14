@@ -195,39 +195,54 @@ namespace EventCatalogAPI.Controllers
             return Ok(addresses);
         }
 
-        //Tried to modify this for webmvc integration - did not work in testing
-        //Attempt is on UpdatingAPIs branch
-        [HttpGet("[action]/Filtered/{city}")]
+        //Addresses Filter
+        [HttpGet("[action]/{city}")]
         public async Task<IActionResult> Addresses(
             string city,
            [FromQuery] int pageIndex = 0,
            [FromQuery] int pageSize = 4)
 
         {
+
             if (city != null && city.Length != 0)
             {
-                var items = await _context.EventItems.Join(_context.Addresses.Where(x => x.City.Equals(city)), eventItem => eventItem.AddressId,
-              address => address.Id, (eventItem, address) => new
-              {
+                var query = from eventItem in _context.EventItems
+                            join address in _context.Addresses
+                            on eventItem.AddressId equals address.Id
+                            where address.City == city
 
-                  eventId = eventItem.Id,
-                  address = eventItem.Address,
-                  eventName = eventItem.EventName,
-                  description = eventItem.Description,
-                  price = eventItem.Price,
-                  eventImage = eventItem.EventImageUrl.Replace("http://externaleventbaseurltoberplaced",
-                    _config["ExternalCatalogBaseUrl"]),
-                  startTime = eventItem.EventStartTime,
-                  endTime = eventItem.EventEndTime,
-                  typeId = eventItem.TypeId,
-                  categoryId = eventItem.CategoryId}).OrderBy(c => c.eventId)
-                    .Skip(pageIndex * pageSize)
-                    .Take(pageSize).ToListAsync();           
-                    return Ok(items);                
+                            select new EventItem
+                            {
+                                Id = eventItem.Id,
+                                Address = eventItem.Address,
+                                EventName = eventItem.EventName,
+                                Description = eventItem.Description,
+                                Price = eventItem.Price,
+                                EventImageUrl = eventItem.EventImageUrl.Replace("http://externalcatalogbaseurltobereplaced",
+                                _config["ExternalCatalogBaseUrl"]),
+                                EventStartTime = eventItem.EventStartTime,
+                                EventEndTime = eventItem.EventEndTime,
+                                TypeId = eventItem.TypeId,
+                                CategoryId = eventItem.CategoryId
+
+
+                            };
+                var eventItemsCount = query.LongCountAsync();
+                var events = await query
+
+                        .OrderBy(c => c.Id)
+                        .Skip(pageIndex * pageSize)
+                        .Take(pageSize)
+                        .ToListAsync();
+                var model = new PaginatedItemsViewModel<EventItem>
+                {
+                    PageIndex = pageIndex,
+                    PageSize = events.Count,
+                    Count = eventItemsCount.Result,
+                    Data = events
+                };
+                return Ok(model);
             }
-          
-
-           
             return Ok();
         }
 
