@@ -18,13 +18,15 @@ namespace WebMvc.Services
 
         public EventService(IConfiguration config, IHttpClient client)
         {
-            _baseUrl = $"{config["EventItemsUrl"]}/api/event/";
+        
+            _baseUrl = $"{config["EventUrl"]}/api/EventItems/";
+           // _baseUrl = $"{config["EventUrl"]}/api/Event/";
             _client = client;
         }
-        public async Task<IEnumerable<SelectListItem>> GetCategoryAsync()
+        public async Task<IEnumerable<SelectListItem>> GetCategoriesAsync()
         {
-            var brandUri = ApiPaths.Event.GetAllCategories(_baseUrl);
-            var dataString = await _client.GetStringAsync(brandUri);
+            var categoryUri = ApiPaths.Event.GetAllCategories(_baseUrl);
+            var dataString = await _client.GetStringAsync(categoryUri);
             var items = new List<SelectListItem>
             {
                 new SelectListItem

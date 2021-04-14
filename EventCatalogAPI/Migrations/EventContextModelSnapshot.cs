@@ -76,7 +76,7 @@ namespace EventCatalogAPI.Migrations
                     b.Property<int>("AddressId")
                         .HasColumnType("int");
 
-                    b.Property<int>("CatagoryId")
+                    b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
@@ -115,7 +115,7 @@ namespace EventCatalogAPI.Migrations
 
                     b.HasIndex("AddressId");
 
-                    b.HasIndex("CatagoryId");
+                    b.HasIndex("CategoryId");
 
                     b.HasIndex("TypeId");
 
@@ -148,7 +148,7 @@ namespace EventCatalogAPI.Migrations
 
                     b.HasOne("EventCatalogAPI.Domain.EventCategory", "EventCategory")
                         .WithMany()
-                        .HasForeignKey("CatagoryId")
+                        .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

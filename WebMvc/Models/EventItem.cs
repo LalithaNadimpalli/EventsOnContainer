@@ -20,7 +20,7 @@ namespace WebMvc.Models
 
         public int AddressId { get; set; }
         public int TypeId { get; set; }
-        public int CatagoryId { get; set; }
+        public int CategoryId { get; set; }
 
         public string Address { get; set; }
         public string EventCategory { get; set; }

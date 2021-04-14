@@ -28,14 +28,14 @@ namespace EventCatalogAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            //var connectionString = Configuration["ConnectionString"];
+            //  var conn = Configuration["ConnectionStrings"];
             var DatabaseServer = Configuration["DatabaseServer"];
             var DatabaseName = Configuration["DatabaseName"];
             var DatabaseUser = Configuration["DatabaseUser"];
             var DatabasePassword = Configuration["DatabasePassword"];
-            var connectionString = $"Server={DatabaseServer};Database={DatabaseName};User Id={DatabaseUser};Password={DatabasePassword}";
+            var conn = $"Server={DatabaseServer};Database={DatabaseName};User Id={DatabaseUser};Password={DatabasePassword}";
 
-            services.AddDbContext<EventContext>(options => options.UseSqlServer(connectionString));
+            services.AddDbContext<EventContext>(option => option.UseSqlServer(conn));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

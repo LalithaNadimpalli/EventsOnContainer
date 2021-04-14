@@ -1,9 +1,7 @@
 version: '3.4'
-
 networks:
   frontend:
   backend:
-
 services:
   eventcatalog:
     image: event/eventcatalogapi
@@ -15,7 +13,7 @@ services:
       DatabaseServer: mssqlserver
       DatabaseName: EventDB
       DatabaseUser: sa
-      DatabasePassword: P@ssword(!)
+      DatabasePassword: ProductApi(!)
     ports:
       - "7810:80"
     depends_on:
@@ -24,14 +22,25 @@ services:
       - frontend
       - backend
     container_name: EventProductserver
-
-
-
+  webmvc:
+    image: events/webmvc
+    build:
+      context: .\WebMvc
+      dockerfile: Dockerfile
+    environment:
+      EventUrl: http://eventcatalog
+    ports:
+      - "7811:80"
+    container_name: webshop
+    networks:
+      - frontend
+    depends_on:
+      - eventcatalog
   mssqlserver:
     image: "mcr.microsoft.com/mssql/server:latest"
     environment:
       ACCEPT_EULA: Y
-      SA_PASSWORD: P@ssword(!)
+      SA_PASSWORD: ProductApi(!)
     ports:
       - "1448:1433"
     container_name: mssqlserver

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace WebMvc.Models
 {
-    public class Event
+    public class  Event 
     {
         public int PageIndex { get; set; }
         public int PageSize { get; set; }

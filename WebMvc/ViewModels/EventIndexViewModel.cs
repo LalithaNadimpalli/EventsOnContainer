@@ -14,7 +14,7 @@ namespace WebMvc.ViewModels
         public IEnumerable<EventItem> EventItems { get; set; }
         public PaginationInfo PaginationInfo { get; set; }
 
-        public int? CategoriesFilterApplied { get; set; }
-        public int? TypesFilterApplied { get; set; }
+        public int? CategoryFilterApplied { get; set; }
+        public int? TypeFilterApplied { get; set; }
     }
 }

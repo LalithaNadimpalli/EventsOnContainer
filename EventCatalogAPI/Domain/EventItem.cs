@@ -20,7 +20,7 @@ namespace EventCatalogAPI.Domain
 
         public int AddressId { get; set; }
         public int TypeId { get; set; }
-        public int CatagoryId { get; set; }
+        public int CategoryId { get; set; }
 
         public EventAddress  Address { get; set; }
         public EventCategory EventCategory { get; set; }

@@ -53,35 +53,35 @@ namespace EventCatalogAPI.Data
             {
                 new EventAddress
                 {
-                    City = "Woodinville", State = "WA ", ZipCode =98055  , StreetAddress = "12345 SE 100th Eve"
+                    City = " Woodinville", State = "WA ", ZipCode =98055  , StreetAddress = " 12345 SE 100th Eve"
                 },
                 new EventAddress
                 {
-                    City = "Redmond", State = "WA", ZipCode =98011  , StreetAddress = "12463 NE 109th Eve"
+                    City = " Redmond", State = "WA ", ZipCode =98011  , StreetAddress = " 12463 NE 109th Eve"
                 },
                 new EventAddress
                 {
-                    City = "Bellevue", State = "WA", ZipCode =98076  , StreetAddress = "12100 SE 201st way"
+                    City = " Bellevue", State = "WA ", ZipCode =98076  , StreetAddress = " 12100 SE 201st way"
                 },
                 new EventAddress
                 {
-                    City = "Seattle", State = "WA", ZipCode =98030  , StreetAddress = "12302 SE 108th Eve"
+                    City = " Seattle", State = "WA ", ZipCode =98030  , StreetAddress = " 12302 SE 108th Eve"
                 },
                 new EventAddress
                 {
-                    City = "Renton", State = "WA", ZipCode =98044  , StreetAddress = "12903 SE 202nd way"
+                    City = " Renton", State = "WA ", ZipCode =98044  , StreetAddress = " 12903 SE 202nd way"
                 },
                 new EventAddress
                 {
-                    City = "Bellevue", State = "WA", ZipCode =98046  , StreetAddress = "12908 NE 102nd way"
+                    City = " Bellevue", State = "WA ", ZipCode =98046  , StreetAddress = " 12908 NE 102nd way"
                 },
                 new EventAddress
                 {
-                    City = "Sammamish", State = "WA", ZipCode =98350  , StreetAddress = "12803 SE 113th St"
+                    City = " Sammamish", State = "WA ", ZipCode =98350  , StreetAddress = " 12803 SE 113th St"
                 },
                 new EventAddress
                 {
-                    City = "Seattle", State = "WA", ZipCode =98121  , StreetAddress = "12460 NE 106th way"
+                    City = " Seattle", State = "WA ", ZipCode =98121  , StreetAddress = " 12460 NE 106th way"
                 }
             };
         }
@@ -111,7 +111,7 @@ namespace EventCatalogAPI.Data
             {
                 new EventItem
                 {
-                    CatagoryId = 10,
+                    CategoryId = 10,
                     AddressId = 3,
                     TypeId = 2,
                     EventName = "Toyota bash 4 Annual carshow ",
@@ -125,7 +125,7 @@ namespace EventCatalogAPI.Data
                 },
                    new EventItem
                  {
-                    CatagoryId = 10,
+                    CategoryId = 10,
                     AddressId = 2,
                     TypeId = 1,
                     EventName = "CARS AND CARBON ",
@@ -138,7 +138,7 @@ namespace EventCatalogAPI.Data
                     EventImageUrl = "http://externaleventbaseurltoberplaced/api/pic/11"
                 },
                    new EventItem {
-                     CatagoryId = 8,
+                     CategoryId = 8,
                      AddressId = 2,
                      TypeId = 2,
                      EventName = "FireWrok ",
@@ -150,7 +150,7 @@ namespace EventCatalogAPI.Data
                      OrganzierPhoneNumber = "1-629-167-6460",
                      EventImageUrl = "http://externaleventbaseurltoberplaced/api/pic/3"},
                    new EventItem {
-                     CatagoryId = 4,
+                     CategoryId = 4,
                      AddressId = 4,
                      TypeId = 2,
                      EventName = "Pumpkin Decorating For Dammy ",
@@ -162,7 +162,7 @@ namespace EventCatalogAPI.Data
                      OrganzierPhoneNumber = "1-629-167-6460",
                      EventImageUrl = "http://externaleventbaseurltoberplaced/api/pic/2"},
                           new EventItem {
-                     CatagoryId = 11,
+                     CategoryId = 11,
                      AddressId = 2,
                      TypeId = 2,
                      EventName = "Memorial Day ",
@@ -172,9 +172,9 @@ namespace EventCatalogAPI.Data
                      EventEndTime =Convert.ToDateTime("04/15/2021"),
                      OrganizerName = "Barack Obama ",
                      OrganzierPhoneNumber = "1-629-197-6460",
-                     EventImageUrl = "http://externaleventbaseurltoberplaced/api/pic/2" },
+                     EventImageUrl = "http://externaleventbaseurltoberplaced/api/pic/13" },
                     new   EventItem {
-                       CatagoryId = 3,
+                       CategoryId = 3,
                        AddressId = 2,
                        TypeId = 1,
                        EventName = "Seminar ",
@@ -186,7 +186,7 @@ namespace EventCatalogAPI.Data
                        OrganzierPhoneNumber = "1-449-197-6460",
                        EventImageUrl = "http://externaleventbaseurltoberplaced/api/pic/4"},
                  new EventItem {
-                       CatagoryId = 8,
+                       CategoryId = 8,
                        AddressId = 2,
                        TypeId = 1,
                        EventName = "Music Concert ",
@@ -198,7 +198,7 @@ namespace EventCatalogAPI.Data
                        OrganzierPhoneNumber = "1-449-197-6460",
                        EventImageUrl = "http://externaleventbaseurltoberplaced/api/pic/5"},
                  new EventItem {
-                       CatagoryId = 12,
+                       CategoryId = 12,
                        AddressId = 2,
                        TypeId = 3,
                        EventName="Medical conference",
@@ -210,7 +210,7 @@ namespace EventCatalogAPI.Data
                        OrganzierPhoneNumber = "1-449-197-6460",
                        EventImageUrl = "http://externaleventbaseurltoberplaced/api/pic/6" },
             new EventItem {
-                       CatagoryId = 11,
+                       CategoryId = 11,
                        AddressId = 2,
                        TypeId = 1,
                        EventName = "Hindu's festival in Seattle",
@@ -222,7 +222,7 @@ namespace EventCatalogAPI.Data
                        OrganzierPhoneNumber = "1-449-197-6460",
                        EventImageUrl = "http://externaleventbaseurltoberplaced/api/pic/7"},
                  new EventItem {
-                     CatagoryId = 3,
+                     CategoryId = 3,
                      AddressId = 2,
                      TypeId = 1,
                      EventName = "Celebrity birthday cake Studio",
@@ -232,9 +232,9 @@ namespace EventCatalogAPI.Data
                      EventEndTime = Convert.ToDateTime("07/06/2021"),
                      OrganizerName = "MybirthDay.org ",
                      OrganzierPhoneNumber = "1-449-197-6460",
-                     EventImageUrl = "http://externaleventbaseurltoberplaced/api/pic/8"},
+                     EventImageUrl = "http://externaleventbaseurltoberplaced/api/pic/12"},
                   new EventItem {
-                      CatagoryId = 6,
+                      CategoryId = 6,
                       AddressId = 2,
                       TypeId = 1,
                       EventName = "Wine Tasting",

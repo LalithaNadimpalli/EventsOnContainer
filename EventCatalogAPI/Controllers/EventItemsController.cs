@@ -164,7 +164,7 @@ namespace EventCatalogAPI.Controllers
             if (eventCategoryId.HasValue)
 
             {
-                query = query.Where(c => c.CatagoryId == eventCategoryId);
+                query = query.Where(c => c.CategoryId == eventCategoryId);
             }
 
             var eventsCount = query.LongCountAsync();
@@ -220,7 +220,7 @@ namespace EventCatalogAPI.Controllers
                   startTime = eventItem.EventStartTime,
                   endTime = eventItem.EventEndTime,
                   typeId = eventItem.TypeId,
-                  categoryId = eventItem.CatagoryId}).OrderBy(c => c.eventId)
+                  categoryId = eventItem.CategoryId}).OrderBy(c => c.eventId)
                     .Skip(pageIndex * pageSize)
                     .Take(pageSize).ToListAsync();           
                     return Ok(items);                
@@ -262,6 +262,45 @@ namespace EventCatalogAPI.Controllers
                Replace("http://externaleventbaseurltoberplaced",
               _config["ExternalCatalogBaseUrl"]));
             return items;
+        }
+
+        // filter based on the catagory or type or  both  ..
+        [HttpGet("[action]/category/{categoryId}/type/{typeId}")]
+        public async Task<IActionResult> Items(
+                       int? categoryId,
+                       int? typeId,
+                       [FromQuery] int pageIndex = 0,
+                       [FromQuery] int pagesize = 6)
+        {
+
+            var query = (IQueryable<EventItem>)_context.EventItems;
+            if (categoryId.HasValue)
+            {
+                query = query.Where(i => i.CategoryId == categoryId);
+            }
+            if (typeId.HasValue)
+            {
+                query = query.Where(i => i.TypeId == typeId);
+            }
+            var itemCount = query.LongCountAsync();
+            var result = await query
+                              .OrderBy(s => s.EventName)
+                              .Skip(pageIndex * pagesize)
+                              .Take(pagesize)
+                              .ToListAsync();
+            result = ChangeImageUrl(result);
+            var model = new PaginatedItemsViewModel<EventItem>
+            {
+                PageIndex = pageIndex,
+                PageSize = result.Count,
+                Count = (int)itemCount.Result,
+                Data = result
+            };
+
+
+            return Ok(model);
+
+
         }
 
     }
