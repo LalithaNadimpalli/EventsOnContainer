@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EventCatalogAPI.Migrations
 {
     [DbContext(typeof(EventContext))]
-    [Migration("20210414181947_second")]
-    partial class second
+    [Migration("20210414011106_initial ")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
