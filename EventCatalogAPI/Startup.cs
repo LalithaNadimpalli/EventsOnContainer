@@ -35,7 +35,7 @@ namespace EventCatalogAPI
             var DatabasePassword = Configuration["DatabasePassword"];
             var conn = $"Server={DatabaseServer};Database={DatabaseName};User Id={DatabaseUser};Password={DatabasePassword}";
 
-            services.AddDbContext<EventContext>(option => option.UseSqlServer(conn));
+            services.AddDbContext<EventContext>(option => option.UseSqlServer(conn), ServiceLifetime.Transient);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
