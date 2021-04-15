@@ -22,6 +22,22 @@ services:
       - frontend
       - backend
     container_name: EventProductserver
+  tokenserver:
+    build:
+      context: .\TokenServiceApi
+      dockerfile: Dockerfile
+    image: jewels/tokenapi
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      MvcClient: http://localhost:7811
+    ports:
+      - "7800:80"
+    container_name: tokenserviceapi
+    networks:
+      - backend
+      - frontend
+    depends_on:
+      - mssqlserver
   webmvc:
     image: events/webmvc
     build:
@@ -29,6 +45,8 @@ services:
       dockerfile: Dockerfile
     environment:
       EventUrl: http://eventcatalog
+      IdentityUrl: http://192.168.86.242:7800
+      CallBackUrl: http://localhost:7811
     ports:
       - "7811:80"
     container_name: webshop
