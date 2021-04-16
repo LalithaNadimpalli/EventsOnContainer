@@ -12,9 +12,12 @@ namespace WebMvc.ViewModels
         public IEnumerable<SelectListItem> Categories { get; set; }
         public IEnumerable<SelectListItem> Types { get; set; }
         public IEnumerable<EventItem> EventItems { get; set; }
+        public IEnumerable<SelectListItem> Addresses { get; set; }
         public PaginationInfo PaginationInfo { get; set; }
 
         public int? CategoryFilterApplied { get; set; }
         public int? TypeFilterApplied { get; set; }
+
+        public int? AddressesFilterApplied { get; set; }
     }
 }
