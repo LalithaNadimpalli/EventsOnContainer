@@ -50,7 +50,8 @@ namespace EventCatalogAPI.Controllers
             {
                 PageIndex = pageIndex,
                 PageSize = events.Count,
-                Count = eventsCount.Result,
+                //Count = eventsCount.Result,
+                Count = await eventsCount,
                 Data = events
             };
 
@@ -83,7 +84,8 @@ namespace EventCatalogAPI.Controllers
             {
                 PageIndex = pageIndex,
                 PageSize = events.Count,
-                Count = eventsCount.Result,
+                //Count = eventsCount.Result,
+                Count = await eventsCount,
                 Data = events
             };
 
@@ -123,7 +125,8 @@ namespace EventCatalogAPI.Controllers
             {
                 PageIndex = pageIndex,
                 PageSize = events.Count,
-                Count = eventsCount.Result,
+                //Count = eventsCount.Result,
+                Count = await eventsCount,
                 Data = events
             };
 
@@ -167,7 +170,8 @@ namespace EventCatalogAPI.Controllers
             {
                 PageIndex = pageIndex,
                 PageSize = events.Count,
-                Count = eventsCount.Result,
+                //Count = eventsCount.Result,
+                Count = await eventsCount,
                 Data = events
             };
 
@@ -225,7 +229,8 @@ namespace EventCatalogAPI.Controllers
                 {
                     PageIndex = pageIndex,
                     PageSize = events.Count,
-                    Count = eventItemsCount.Result,
+                    //Count = eventsCount.Result,
+                    Count = await eventItemsCount,
                     Data = events
                 };
                 return Ok(model);
@@ -252,7 +257,8 @@ namespace EventCatalogAPI.Controllers
             {
                 PageIndex = pageIndex,
                 PageSize = items.Count,
-                Count = itemsCount.Result,
+                //Count = eventsCount.Result,
+                Count = await itemsCount,
                 Data = items
             };
             return Ok(model);
@@ -300,7 +306,8 @@ namespace EventCatalogAPI.Controllers
             {
                 PageIndex = pageIndex,
                 PageSize = result.Count,
-                Count = (int)itemCount.Result,
+                //Count = eventsCount.Result,
+                Count = await itemCount,
                 Data = result
             };
 
