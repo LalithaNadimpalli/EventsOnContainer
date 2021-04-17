@@ -49,9 +49,9 @@ namespace WebMvc.Services
             return items;
         }
 
-        public async Task<Event> GetEventItemsAsync(int page, int size, int? category, int? type)
+        public async Task<Event> GetEventItemsAsync(int page, int size, int? category, int? type, int? address)
         {
-            var eventItemsUri = ApiPaths.Event.GetAllEventItems(_baseUrl, page, size, category, type);
+            var eventItemsUri = ApiPaths.Event.GetAllEventItems(_baseUrl, page, size, category, type, address);
             var dataString = await _client.GetStringAsync(eventItemsUri);
             return JsonConvert.DeserializeObject<Event>(dataString);
         }
@@ -77,6 +77,32 @@ namespace WebMvc.Services
                     {
                         Value = type.Value<string>("id"),
                         Text = type.Value<string>("type")
+                    });
+            }
+            return items;
+        }
+
+        public async Task<IEnumerable<SelectListItem>> GetEventAddressesAsync()
+        {
+            var eventAddressUri = ApiPaths.Event.GetAllEventAddresses(_baseUrl);
+            var dataString = await _client.GetStringAsync(eventAddressUri);
+            var items = new List<SelectListItem>
+            {
+                new SelectListItem
+                {
+                    Value="0",
+                    Text="All",
+                    Selected = true
+                }
+            };
+            var addresses = JArray.Parse(dataString);
+            foreach (var address in addresses)
+            {
+                items.Add(
+                    new SelectListItem
+                    {
+                        Value = address.Value<string>("id"),
+                        Text = address.Value<string>("city")
                     });
             }
             return items;

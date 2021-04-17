@@ -25,19 +25,6 @@ namespace EventCatalogAPI.Controllers
             _config = config;
         }
 
-        //Re-orders events by date - oldest to newest
-        //[HttpGet]
-        //[Route("[action]")]
-        //public async Task<IActionResult> Dates()
-        //{
-        //    var events = await _context.EventItems
-        //        .OrderBy(d => d.EventStartTime.Date)
-        //        .ToListAsync();
-        //    events = ChangeImageUrl(events);
-
-        //    return Ok(events);
-        //}
-
         //Sorts event by month
         [HttpGet]
         [Route("[action]/{month}")]
@@ -279,23 +266,28 @@ namespace EventCatalogAPI.Controllers
             return items;
         }
 
-        // filter based on the catagory or type or  both  ..
-        [HttpGet("[action]/category/{categoryId}/type/{typeId}")]
+        // filter based on the catagory or type or  address or all three  ..
+        [HttpGet("[action]/category/{categoryId}/type/{typeId}/address/{eventAddressId}")]
         public async Task<IActionResult> Items(
                        int? categoryId,
                        int? typeId,
+                       int? eventAddressId,
                        [FromQuery] int pageIndex = 0,
                        [FromQuery] int pagesize = 6)
         {
 
             var query = (IQueryable<EventItem>)_context.EventItems;
-            if (categoryId.HasValue)
+            if (categoryId > 0)
             {
                 query = query.Where(i => i.CategoryId == categoryId);
             }
-            if (typeId.HasValue)
+            if (typeId > 0)
             {
                 query = query.Where(i => i.TypeId == typeId);
+            }
+            if (eventAddressId > 0)
+            {
+                query = query.Where(c => c.AddressId == eventAddressId);
             }
             var itemCount = query.LongCountAsync();
             var result = await query

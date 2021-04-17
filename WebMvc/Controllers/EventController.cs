@@ -17,17 +17,30 @@ namespace WebMvc.Controllers
             _service = service;
         }
 
-        public async Task<IActionResult> Index(int? page, int? categoryFilterApplied, int? typeFilterApplied)
+        public async Task<IActionResult> Index(int? page, int? categoryFilterApplied, int? typeFilterApplied,
+            int? addressesFilterApplied)
         {
             var itemsOnPage = 10;
 
-            var events = await _service.GetEventItemsAsync(page ?? 0, itemsOnPage, categoryFilterApplied, typeFilterApplied);
+            var events = await _service.GetEventItemsAsync(page ?? 0, itemsOnPage, categoryFilterApplied, typeFilterApplied,
+                addressesFilterApplied);
 
+            if (null == events)
+            {
+                var vm1 = new EventIndexViewModel
+                {
+                    CategoryFilterApplied = categoryFilterApplied ?? 0,
+                    TypeFilterApplied = typeFilterApplied ?? 0,
+                    AddressesFilterApplied = addressesFilterApplied ?? 0,                    
+                };
+                return View(vm1);
+            }
             var vm = new EventIndexViewModel
             {
                 EventItems = events.Data,
-                Types = await _service.GetEventTypesAsync(),
                 Categories = await _service.GetCategoriesAsync(),
+                Types = await _service.GetEventTypesAsync(),
+                Addresses = await _service.GetEventAddressesAsync(),              
                 PaginationInfo = new PaginationInfo
                 {
                     ActualPage = page ?? 0,
@@ -36,7 +49,8 @@ namespace WebMvc.Controllers
                     TotalPages = (int)Math.Ceiling((decimal)events.Count / itemsOnPage)
                 },
                 CategoryFilterApplied = categoryFilterApplied ?? 0,
-                TypeFilterApplied = typeFilterApplied ?? 0
+                TypeFilterApplied = typeFilterApplied ?? 0,
+                AddressesFilterApplied = addressesFilterApplied ?? 0,                
             };
 
             return View(vm);
