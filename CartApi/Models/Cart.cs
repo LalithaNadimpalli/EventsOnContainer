@@ -1,22 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
-namespace CartApi.Models
+namespace CartAPI.Models
 {
     public class Cart
     {
         public string BuyerId { get; set; }
-        public List<CartItem> Items { get; set; }
+        public List<CartEvent> Events { get; set; }
+        public Cart() { }
 
-        public Cart()
-        { }
 
         public Cart(string cartId)
         {
             BuyerId = cartId;
-            Items = new List<CartItem>();
+            Events = new List<CartEvent>();
         }
     }
 }
