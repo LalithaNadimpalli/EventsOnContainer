@@ -8,15 +8,15 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
 COPY . .
-RUN dotnet restore "EventCatalogAPI.csproj"
+RUN dotnet restore "CartAPI.csproj"
 
 
-RUN dotnet build "EventCatalogAPI.csproj" -c Release -o /app/build
+RUN dotnet build "CartAPI.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "EventCatalogAPI.csproj" -c Release -o /app/publish
+RUN dotnet publish "CartAPI.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "EventCatalogAPI.dll"]
+ENTRYPOINT ["dotnet", "CartAPI.dll"]
