@@ -17,7 +17,7 @@ namespace CartAPI.Models
             _database = redis.GetDatabase();
         }
 
-        public async Task<bool> DeleteCaretAsync(string id)
+        public async Task<bool> DeleteCartAsync(string id)
         {
             return await _database.KeyDeleteAsync(id);
         }
