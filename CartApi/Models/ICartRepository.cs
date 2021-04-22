@@ -7,7 +7,7 @@ namespace CartAPI.Models
     {
         Task<Cart> GetCartAsync(string cartId);
         Task<Cart> UpdateCartAsync(Cart basket);
-        Task<bool> DeleteCaretAsync(string Id);
+        Task<bool> DeleteCartAsync(string Id);
         IEnumerable<string> GetUsers();
 
     }
