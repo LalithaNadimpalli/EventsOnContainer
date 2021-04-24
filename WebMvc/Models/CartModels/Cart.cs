@@ -7,7 +7,7 @@ namespace WebMvc.Models.CartModels
 {
     public class Cart
     {
-        public List<CartEvent> Events { get; set; } = new List<CartEvent>();
+        public List<CartEventItem> Events { get; set; } = new List<CartEventItem>();
         public string BuyerId { get; set; }
         public object Items { get; internal set; }
 

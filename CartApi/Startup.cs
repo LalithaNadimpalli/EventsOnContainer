@@ -1,3 +1,4 @@
+using CartAPI.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -6,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +27,15 @@ namespace CartApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson();            
+            services.AddTransient<ICartRepository, RedisCartRepository>();            
+            services.AddSingleton<ConnectionMultiplexer>(cm =>
+            {               
+                var configuration = ConfigurationOptions.Parse(Configuration["ConnectionString"], true);
+                configuration.ResolveDns = true;
+                configuration.AbortOnConnectFail = false;
+                return ConnectionMultiplexer.Connect(configuration);
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -39,7 +49,7 @@ namespace CartApi
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
