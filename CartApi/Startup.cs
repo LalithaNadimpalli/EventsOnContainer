@@ -1,4 +1,5 @@
 using CartAPI.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -10,6 +11,7 @@ using Microsoft.Extensions.Logging;
 using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -35,6 +37,23 @@ namespace CartApi
                 configuration.ResolveDns = true;
                 configuration.AbortOnConnectFail = false;
                 return ConnectionMultiplexer.Connect(configuration);
+            });
+
+            // prevent from mapping "sub" claim to nameidentifier.
+            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
+
+            var identityUrl = Configuration["IdentityUrl"];
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(options =>
+            {
+
+                options.Authority = identityUrl.ToString();
+                options.RequireHttpsMetadata = false;
+                options.Audience = "basket";
             });
         }
 
