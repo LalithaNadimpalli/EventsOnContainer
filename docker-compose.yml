@@ -1,7 +1,9 @@
 version: '3.4'
+
 networks:
   frontend:
   backend:
+
 services:
   eventcatalog:
     image: event/eventcatalogapi
@@ -22,6 +24,7 @@ services:
       - frontend
       - backend
     container_name: EventProductserver
+
   tokenserver:
     build:
       context: .\TokenServiceApi
@@ -38,6 +41,25 @@ services:
       - frontend
     depends_on:
       - mssqlserver
+
+  cart:
+    build:
+      context: .\CartApi
+      dockerfile: Dockerfile
+    image: event/cartapi
+    environment:
+      IdentityUrl: http://192.168.0.65:7800
+      ConnectionString: basketdata
+    ports:
+     - "7840:80"
+    container_name: cartapi
+    networks:
+     - frontend
+     - backend
+    depends_on:
+     - tokenserver
+     - basketdata
+
   webmvc:
     image: events/webmvc
     build:
@@ -54,6 +76,7 @@ services:
       - frontend
     depends_on:
       - eventcatalog
+
   mssqlserver:
     image: "mcr.microsoft.com/mssql/server:latest"
     environment:
@@ -64,3 +87,11 @@ services:
     container_name: mssqlserver
     networks:
       - backend
+
+  basketdata:
+    image: redis
+    container_name: databasket
+    ports:
+     - "7180:6379"
+    networks:
+     - backend
