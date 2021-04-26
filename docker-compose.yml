@@ -69,6 +69,7 @@ services:
       EventUrl: http://eventcatalog
       IdentityUrl: http://192.168.0.65:7800
       CallBackUrl: http://localhost:7811
+      CartUrl: http://cart
     ports:
       - "7811:80"
     container_name: webshop
@@ -76,6 +77,8 @@ services:
       - frontend
     depends_on:
       - eventcatalog
+      - tokenserver
+      - cart
 
   mssqlserver:
     image: "mcr.microsoft.com/mssql/server:latest"
