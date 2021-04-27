@@ -11,11 +11,12 @@ namespace WebMvc.Services
 {
     public interface ICartService
     {
-        Task<Cart> GetCart(ApplicationUser user);
-        Task AddItemToCart(ApplicationUser user, CartItem events);
+      Task<Cart> GetCart(ApplicationUser user);
+        Task AddItemToCart(ApplicationUser user, CartEventItem events);
         Task<Cart> UpdateCart(Cart Cart);
         Task<Cart> SetQuantities(ApplicationUser user, Dictionary<string, int> quantities);
-        Order MapCartToOrder(Cart Cart);
+        
+        //Order MapCartToOrder(Cart Cart);
         Task ClearCart(ApplicationUser user);
 
     }
