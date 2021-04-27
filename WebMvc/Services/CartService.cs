@@ -11,7 +11,7 @@ using WebMvc.Infrastructure;
 using WebMvc.Models;
 using WebMvc.Models.CartModels;
 
-namespace WebMvc.Services.CartServices
+namespace WebMvc.Services
 {
     public class CartService : ICartService
     {
