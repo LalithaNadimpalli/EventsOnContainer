@@ -1,23 +1,17 @@
-﻿using System;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebMvc.Infrastructure;
 using WebMvc.Models;
 using WebMvc.Models.CartModels;
-using Microsoft.Extensions.Options;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
-using Microsoft.AspNetCore.Authentication;
-using System.IdentityModel.Tokens.Jwt;
-using Newtonsoft.Json.Linq;
-using WebMvc;
-using WebMvc.Infrastructure;
-using Microsoft.Extensions.Configuration;
-//using WebMvc.Models.OrderModels;
-//using WebMvc.Models.OrderModels;
 
-namespace WebMvc.Services
+namespace WebMvc.Services.CartServices
 {
     public class CartService : ICartService
     {
@@ -37,24 +31,22 @@ namespace WebMvc.Services
             _logger = logger.CreateLogger<CartService>();
 
         }
-
-        public async Task AddItemToCart(ApplicationUser user, CartEventItem event)
+        public async Task AddItemToCart(ApplicationUser user, CartEventItem events)
         {
             var cart = await GetCart(user);
             _logger.LogDebug("User Name: " + user.Email);
 
-            var basketItem = cart.Items
-                .Where(e => e.EventId == event.eventId)
+            var basketItem = cart.Events
+                .Where(events => events.EventId == events.EventId)
                 .FirstOrDefault();
             if (basketItem == null)
             {
-                Cart.Items.Add(event);
-        }
+                cart.Events.Add(events);
+            }
             else
             {
                 basketItem.Quantity += 1;
             }
-}
 
             await UpdateCart(cart);
         }
@@ -87,34 +79,18 @@ namespace WebMvc.Services
             return response;
         }
 
-        public Order MapCartToOrder(Cart cart)
+        async Task <string> GetUserTokenAsync()
         {
-            var order = new Order();
-            order.OrderTotal = 0;
+            var context = _httpContextAccesor.HttpContext;
 
-            cart.Items.ForEach(x =>
-            {
-                order.OrderItems.Add(new OrderItem()
-                {
-                    EventId = int.Parse(x.EventId),
-
-                    PictureUrl = x.PictureUrl,
-                    EventName = x.EventName,
-                    Units = x.Quantity,
-                    UnitPrice = x.UnitPrice
-                });
-                order.OrderTotal += (x.Quantity * x.UnitPrice);
-            });
-
-            return order;
+            return await context.GetTokenAsync("access_token");
         }
 
-
-        public async Task<Cart> SetQuantities(ApplicationUser user, Dictionary<string, int> quantities)
+        public  async Task<Cart> SetQuantities(ApplicationUser user, Dictionary<string, int> quantities)
         {
             var basket = await GetCart(user);
 
-            basket.Items.ForEach(x =>
+            basket.Events.ForEach(x =>
             {
                 // Simplify this logic by using the
                 // new out variable initializer.
@@ -127,27 +103,16 @@ namespace WebMvc.Services
             return basket;
         }
 
-        public async Task<Cart> UpdateCart(Cart cart)
+        public async Task<Cart> UpdateCart(Cart Cart)
         {
-
             var token = await GetUserTokenAsync();
             _logger.LogDebug("Service url: " + _remoteServiceBaseUrl);
             var updateBasketUri = ApiPaths.Basket.UpdateBasket(_remoteServiceBaseUrl);
             _logger.LogDebug("Update Basket url: " + updateBasketUri);
-            var response = await _apiClient.PostAsync(updateBasketUri, cart, token);
+            var response = await _apiClient.PostAsync(updateBasketUri, Cart, token);
             response.EnsureSuccessStatusCode();
 
-            return cart;
-        }
-
-        async Task<string> GetUserTokenAsync()
-        {
-            var context = _httpContextAccesor.HttpContext;
-
-            return await context.GetTokenAsync("access_token");
-
-        }
-
+            return Cart;
         }
     }
 }
