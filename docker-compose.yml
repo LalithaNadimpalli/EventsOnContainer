@@ -46,7 +46,7 @@ services:
       dockerfile: Dockerfile
     image: event/cartapi
     environment:
-      IdentityUrl: http://192.168.0.65:7800
+      IdentityUrl: http://192.168.86.242:7800
       ConnectionString: basketdata
     ports:
      - "7840:80"
@@ -65,7 +65,7 @@ services:
       dockerfile: Dockerfile
     environment:
       EventUrl: http://eventcatalog
-      IdentityUrl: http://192.168.0.65:7800
+      IdentityUrl: http://192.168.86.242:7800
       CallBackUrl: http://localhost:7811
       CartUrl: http://cart
     ports:
