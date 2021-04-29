@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 
 namespace CartApi.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class CartController : ControllerBase
     {
         private readonly ICartRepository _repository;
