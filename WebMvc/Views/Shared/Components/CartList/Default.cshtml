@@ -32,20 +32,20 @@
 
         @for (int i = 0; i < Model.Events.Count; i++)
         {
-            var eventItem = Model.Events[i];
+            var item = Model.Events[i];
 
             <article class="esh-basket-items  row">
                 <div>
                     <section class="esh-basket-item esh-basket-item--middle col-lg-3 hidden-lg-down">
-                        <img class="esh-basket-image" src="@eventItem.PictureUrl" />
+                        <img class="esh-basket-image" src="@item.PictureUrl" />
                     </section>
-                    <section class="esh-basket-item esh-basket-item--middle col-xs-3">@eventItem.EventName</section>
-                    <section class="esh-basket-item esh-basket-item--middle col-xs-2">$ @eventItem.UnitPrice.ToString("N2")</section>
+                    <section class="esh-basket-item esh-basket-item--middle col-xs-3">@item.EventName</section>
+                    <section class="esh-basket-item esh-basket-item--middle col-xs-2">$ @item.UnitPrice.ToString("N2")</section>
                     <section class="esh-basket-item esh-basket-item--middle col-xs-2">
-                        <input type="hidden" name="@("quantities[" + i +"].Key")" value="@eventItem.Id" />
-                        <input type="number" class="esh-basket-input" min="1" name="@("quantities[" + i +"].Value")" value="@eventItem.Quantity" />
+                        <input type="hidden" name="@("quantities[" + i +"].Key")" value="@item.Id" />
+                        <input type="number" class="esh-basket-input" min="1" name="@("quantities[" + i +"].Value")" value="@item.Quantity" />
                     </section>
-                    <section class="esh-basket-item esh-basket-item--middle esh-basket-item--mark col-xs-2">$ @Math.Round(eventItem.Quantity * eventItem.UnitPrice, 2).ToString("N2")</section>
+                    <section class="esh-basket-item esh-basket-item--middle esh-basket-item--mark col-xs-2">$ @Math.Round(item.Quantity * item.UnitPrice, 2).ToString("N2")</section>
                 </div>
                 <div class="row">
 
@@ -53,9 +53,9 @@
             </article>
 
             <div class="esh-basket-items--border row">
-                @if (eventItem.OldUnitPrice != 0)
+                @if (item.OldUnitPrice != 0)
                 {
-                    <div class="alert alert-warning esh-basket-margin12" role="alert">&nbsp;Note that the price of this article changed in our Catalog. The old price when you originally added it to the basket was $ @eventItem.OldUnitPrice </div>
+                    <div class="alert alert-warning esh-basket-margin12" role="alert">&nbsp;Note that the price of this article changed in our Catalog. The old price when you originally added it to the basket was $ @item.OldUnitPrice </div>
                 }
             </div>
             <br />

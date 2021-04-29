@@ -1,4 +1,5 @@
-using CartAPI.Models;
+
+using CartApi.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -29,19 +30,18 @@ namespace CartApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers().AddNewtonsoftJson();            
-            services.AddTransient<ICartRepository, RedisCartRepository>();            
+
+            services.AddControllers().AddNewtonsoftJson();// we add this to use the old version of newtonsoft  when we work on post 
+            services.AddTransient<ICartRepository, RedisCartRepository>();
             services.AddSingleton<ConnectionMultiplexer>(cm =>
-            {               
-                var configuration = ConfigurationOptions.Parse(Configuration["ConnectionString"], true);
-                configuration.ResolveDns = true;
-                configuration.AbortOnConnectFail = false;
-                return ConnectionMultiplexer.Connect(configuration);
+            {
+                var configeration = ConfigurationOptions.Parse(Configuration["ConnectionString"], true);
+                configeration.ResolveDns = true;
+                configeration.AbortOnConnectFail = false;
+                return ConnectionMultiplexer.Connect(configeration);
             });
-
-            // prevent from mapping "sub" claim to nameidentifier.
+            //prevent from mapping "sub"caim to name identifier
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
-
             var identityUrl = Configuration["IdentityUrl"];
             services.AddAuthentication(options =>
             {
@@ -50,11 +50,11 @@ namespace CartApi
             })
             .AddJwtBearer(options =>
             {
-
                 options.Authority = identityUrl.ToString();
                 options.RequireHttpsMetadata = false;
                 options.Audience = "basket";
             });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -63,10 +63,10 @@ namespace CartApi
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+
             }
 
             app.UseHttpsRedirection();
-
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();

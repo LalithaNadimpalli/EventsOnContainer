@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebMvc.Services.CartServices;
 
 namespace WebMvc.ViewComponents
 {
@@ -25,7 +26,7 @@ namespace WebMvc.ViewComponents
             {
                 var cart = await _cartSvc.GetCart(user);
 
-                vm.EventsInCart = cart.Events.Count;
+                vm.ItemsInCart = cart.Events.Count;
                 vm.TotalCost = cart.Total();
                 return View(vm);
             }

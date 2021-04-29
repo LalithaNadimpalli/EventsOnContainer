@@ -46,17 +46,17 @@ services:
       dockerfile: Dockerfile
     image: event/cartapi
     environment:
-      IdentityUrl: http://192.168.86.242:7800
-      ConnectionString: basketdata
+      IdentityUrl: http://192.168.1.223:7800
+      ConnectionString: basket.data
     ports:
-     - "7840:80"
-    container_name: cartapi
+      - "7820:80"
+    container_name: catapi
     networks:
-     - frontend
-     - backend
+      - backend
+      - frontend
     depends_on:
-     - tokenserver
-     - basketdata
+      - tokenserver
+      - basket.data
 
   webmvc:
     image: events/webmvc
@@ -65,7 +65,7 @@ services:
       dockerfile: Dockerfile
     environment:
       EventUrl: http://eventcatalog
-      IdentityUrl: http://192.168.86.242:7800
+      IdentityUrl: http://192.168.1.223:7800
       CallBackUrl: http://localhost:7811
       CartUrl: http://cart
     ports:
@@ -89,10 +89,10 @@ services:
     networks:
       - backend
 
-  basketdata:
-    image: redis
-    container_name: databasket
+  basket.data:
+    image : redis
     ports:
-     - "7180:6379"
-    networks:
-     - backend
+      - "7080:6379"
+    container_name: basketdata
+    networks: 
+      - backend

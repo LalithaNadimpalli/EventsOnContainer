@@ -7,8 +7,8 @@ namespace WebMvc.ViewModels
 {
     public class CartComponentViewModel
     {
-        public int EventsInCart { get; set; }
+        public int ItemsInCart { get; set; }
         public decimal TotalCost { get; set; }
-        public string Disabled => (EventsInCart == 0) ? "is-disabled" : "";
+        public string Disabled => (ItemsInCart == 0) ? "is-disabled" : "";
     }
 }

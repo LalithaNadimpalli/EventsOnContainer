@@ -1,7 +1,7 @@
 ﻿using CartApi.Models;
 using System.Collections.Generic;
 
-namespace CartAPI.Models
+namespace CartApi.Models
 {
     public class Cart
     {

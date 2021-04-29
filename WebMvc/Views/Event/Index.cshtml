@@ -1,6 +1,5 @@
 ﻿
-@{
-    ViewData["Title"] = "Catalog";
+@{ ViewData["Title"] = "Event";
     @model WebMvc.ViewModels.EventIndexViewModel
 }
 <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="6000">
@@ -10,13 +9,12 @@
         <li data-target="#myCarousel" data-slide-to="2"></li>
         <li data-target="#myCarousel" data-slide-to="3"></li>
     </ol>
-  
     <div class="carousel-inner" role="listbox">
         <div class="item active">
             <img src="~/images/Log1.jpg" alt="ASP.NET" class="img-responsive" />
             <div class="carousel-caption" role="option">
                 <p>
-                    Let's have fun! Cheers! 
+                    Let's have fun! Cheers!
                 </p>
             </div>
         </div>
@@ -64,6 +62,8 @@
         </form>
     </div>
 </section>
+
+
 <div class="container">
     @*@if (Model.EventItems != null && Model.EventItems.Count() > 0)*@
     @if (Model.EventItems.Count() > 0)
@@ -88,4 +88,5 @@
         </div>
     }
 </div>
+
 

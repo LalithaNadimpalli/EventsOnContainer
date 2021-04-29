@@ -1,12 +1,13 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-
-using System.Threading.Tasks;
+﻿//using DocumentFormat.OpenXml.Drawing.Charts;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Security.Claims;
+using System.Security.Policy;
+using System.Threading.Tasks;
 
 namespace WebMvc.Controllers
 {
@@ -36,9 +37,11 @@ namespace WebMvc.Controllers
 
                 ViewData["id_token"] = idToken;
             }
+
+           
             //"Catalog" because UrlHelper doesn't support nameof() for controllers
             // https://github.com/aspnet/Mvc/issues/5853
-            return RedirectToAction(nameof(EventController.Index), "Event");
+           return RedirectToAction(nameof(EventController.Index), "Event");
         }
 
         public async Task<IActionResult> Signout()

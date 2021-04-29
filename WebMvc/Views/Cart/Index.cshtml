@@ -1,7 +1,7 @@
 ﻿@using WebMvc.Services
 @using WebMvc.ViewModels
 
-@*@model  WebMvc.Models.CartModels.Cart*@
+@model  WebMvc.Models.CartModels.Cart
 @inject IIdentityService<ApplicationUser> identityService 
 
 @{
@@ -11,7 +11,7 @@
 <form method="post" id="cartForm">
     <div class="esh-basket">
         @Html.Partial("_Header", new List<Header>() {
-            new Header() { Controller = "Event", Text = "Back to events" } })
+            new Header() { Controller = "Event", Text = "Back to Events" } })
 
         @await Component.InvokeAsync("CartList", new { user = identityService.Get(User) })
     </div>

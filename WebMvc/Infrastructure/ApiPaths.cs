@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace WebMvc.Infrastructure
+﻿namespace WebMvc.Infrastructure
 {
     public static class ApiPaths
     {
@@ -35,27 +29,41 @@ namespace WebMvc.Infrastructure
                 //   var filterQs = string.Empty;
                 var catagoryQs = (catagory.HasValue) ? catagory.Value : -1;
                 var typeQs = (type.HasValue) ? type.Value : -1;
-                var addressQs = (address.HasValue) ? address.Value : -1;              
-                var filterQs = $"/category/{catagoryQs}/type/{typeQs}/address/{addressQs}";          
+                var addressQs = (address.HasValue) ? address.Value : -1;
+                var filterQs = $"/category/{catagoryQs}/type/{typeQs}/address/{addressQs}";
                 return $"{baseUri}Items{filterQs}?pageIndex={page}&pageSize={take}";
-            }        
+            }
         }
 
         public static class Basket
         {
-            public static string GetBasket(string baseUri, string basketId)
+            public static string GetBasket(string baseUrl, string basketId)
             {
-                return $"{baseUri}/{basketId}";
+                return $"{baseUrl}/{basketId}";
             }
-
-            public static string UpdateBasket(string baseUri)
+            public static string UpdateBasket(string baseUrl)
+            {
+                return baseUrl;
+            }
+            public static string CleanBasket(string baseUrl, string basketId)
+            {
+                return $"{baseUrl}/{basketId}";
+            }
+        }
+        public static class Order
+        {
+            public static string GetOrder(string baseUri, string orderId)
+            {
+                return $"{baseUri}/{orderId}";
+            }
+            public static string GetOrders(string baseUri)
             {
                 return baseUri;
             }
 
-            public static string CleanBasket(string baseUri, string basketId)
+            public static string AddNewOrder(string baseUri)
             {
-                return $"{baseUri}/{basketId}";
+                   return $"{baseUri}/new";
             }
         }
     }
