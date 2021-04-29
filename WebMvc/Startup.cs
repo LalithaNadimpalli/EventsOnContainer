@@ -39,7 +39,7 @@ namespace WebMvc
             services.AddTransient<ICartService, CartService>();
             var identityUrl = Configuration.GetValue<string>("IdentityUrl");
             var callBackUrl = Configuration.GetValue<string>("CallBackUrl");
-            //IdentityModelEventSource.ShowPII = true;
+            IdentityModelEventSource.ShowPII = true;
             services.AddAuthentication(options =>
             {
                 /*options.DefaultScheme = "Cookies";
