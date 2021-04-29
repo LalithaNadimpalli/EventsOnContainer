@@ -68,6 +68,9 @@ namespace WebMvc.Infrastructure
                 throw new ArgumentException("Value must be either post or put.", nameof(method));
             }
             var requestMessage = new HttpRequestMessage(method, uri);
+
+            Debug.WriteLine("This is the uri in CustomHttpClient.Post:" + $"{uri}");
+
             requestMessage.Content = new StringContent(JsonConvert.SerializeObject(item),
                                         System.Text.Encoding.UTF8, "application/json");
 

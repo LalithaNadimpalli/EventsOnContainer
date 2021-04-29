@@ -1,4 +1,4 @@
-﻿using CartAPI.Models;
+﻿using CartApi.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;

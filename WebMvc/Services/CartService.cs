@@ -110,7 +110,7 @@ namespace WebMvc.Services
             var updateBasketUri = ApiPaths.Basket.UpdateBasket(_remoteServiceBaseUrl);
             _logger.LogDebug("Update Basket url: " + updateBasketUri);
             var response = await _apiClient.PostAsync(updateBasketUri, Cart, token);
-            response.EnsureSuccessStatusCode();
+             response.EnsureSuccessStatusCode();
 
             return Cart;
         }

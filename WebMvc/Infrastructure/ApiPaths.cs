@@ -45,11 +45,14 @@ namespace WebMvc.Infrastructure
         {
             public static string GetBasket(string baseUri, string basketId)
             {
+                Debug.WriteLine("Here is the GetBasket Uri ***: " + $"{baseUri}/{basketId}");
                 return $"{baseUri}/{basketId}";
+                
             }
 
             public static string UpdateBasket(string baseUri)
             {
+                Debug.WriteLine("Here is the UpdateBasket Uri ***: " + $"{baseUri}");
                 return baseUri;
             }
 

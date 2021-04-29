@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace CartAPI.Models
+namespace CartApi.Models
 {
     public interface ICartRepository
     {
