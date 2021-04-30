@@ -37,7 +37,7 @@ namespace WebMvc.Services
             _logger.LogDebug("User Name: " + user.Email);
 
             var basketItem = cart.Events
-                .Where(events => events.EventId == events.EventId)
+                .Where(e => e.EventId == events.EventId)
                 .FirstOrDefault();
             if (basketItem == null)
             {
