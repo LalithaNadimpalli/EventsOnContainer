@@ -37,7 +37,7 @@ namespace WebMvc.Services
             _logger.LogDebug("User Name: " + user.Email);
 
             var basketItem = cart.Events
-                .Where(events => events.EventId == events.EventId)
+                .Where(e => e.EventId == events.EventId)
                 .FirstOrDefault();
             if (basketItem == null)
             {
@@ -110,7 +110,7 @@ namespace WebMvc.Services
             var updateBasketUri = ApiPaths.Basket.UpdateBasket(_remoteServiceBaseUrl);
             _logger.LogDebug("Update Basket url: " + updateBasketUri);
             var response = await _apiClient.PostAsync(updateBasketUri, Cart, token);
-            response.EnsureSuccessStatusCode();
+             response.EnsureSuccessStatusCode();
 
             return Cart;
         }

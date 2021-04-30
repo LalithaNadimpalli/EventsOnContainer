@@ -1,4 +1,4 @@
-﻿using CartAPI.Models;
+﻿using CartApi.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 
 namespace CartApi.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class CartController : ControllerBase
     {
         private readonly ICartRepository _repository;
