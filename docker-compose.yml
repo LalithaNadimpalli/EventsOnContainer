@@ -54,7 +54,7 @@ services:
       ASPNETCORE_ENVIRONMENT: Development
       IdentityUrl: http://192.168.86.242:7800
       DatabaseServer: mssqlserver
-      DatabaseName: EventDB
+      DatabaseName: OrderDB
       DatabaseUser: sa
       DatabasePassword: ProductApi(!)
     ports:
