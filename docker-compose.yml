@@ -40,6 +40,33 @@ services:
     depends_on:
       - mssqlserver
 
+  order:
+    build:
+      context: .\OrderApi
+      dockerfile: Dockerfile
+    image: jewels/orderapi
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      IdentityUrl: http://192.168.86.242:7800
+      DatabaseServer: mssqlserver
+      DatabaseName: EventDB
+      DatabaseUser: sa
+      DatabasePassword: ProductApi(!)
+    ports:
+      - "7850:80" 
+    container_name: orderapi
+    networks:
+      - backend
+      - frontend
+    depends_on:
+      - mssqlserver
+      - tokenserver
+
   cart:
     build:
       context: .\CartApi
@@ -77,6 +104,7 @@ services:
       - eventcatalog
       - tokenserver
       - cart
+      - order
 
   mssqlserver:
     image: "mcr.microsoft.com/mssql/server:latest"
