@@ -49,14 +49,14 @@ services:
       IdentityUrl: http://192.168.86.242:7800
       ConnectionString: basketdata
     ports:
-     - "7840:80"
+      - "7840:80"
     container_name: cartapi
     networks:
-     - frontend
-     - backend
+      - frontend
+      - backend
     depends_on:
-     - tokenserver
-     - basketdata
+      - tokenserver
+      - basketdata
 
   webmvc:
     image: events/webmvc
@@ -93,6 +93,6 @@ services:
     image: redis
     container_name: databasket
     ports:
-     - "7180:6379"
+      - "7180:6379"
     networks:
-     - backend
+      - backend
