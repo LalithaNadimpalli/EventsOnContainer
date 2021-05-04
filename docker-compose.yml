@@ -44,7 +44,7 @@ services:
     build:
       context: .\OrderApi
       dockerfile: Dockerfile
-    image: jewels/orderapi
+    image: event/orderapi
     logging:
       driver: "json-file"
       options:
