@@ -93,8 +93,7 @@ namespace WebMvc.Services
 
             basket.Events.ForEach(x =>
             {
-                // Simplify this logic by using the
-                // new out variable initializer.
+           
                 if (quantities.TryGetValue(x.Id, out var quantity))
                 {
                     x.Quantity = quantity;
