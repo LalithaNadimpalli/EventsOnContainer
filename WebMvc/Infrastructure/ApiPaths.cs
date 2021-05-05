@@ -35,10 +35,10 @@ namespace WebMvc.Infrastructure
                 //   var filterQs = string.Empty;
                 var catagoryQs = (catagory.HasValue) ? catagory.Value : -1;
                 var typeQs = (type.HasValue) ? type.Value : -1;
-                var addressQs = (address.HasValue) ? address.Value : -1;              
-                var filterQs = $"/category/{catagoryQs}/type/{typeQs}/address/{addressQs}";          
+                var addressQs = (address.HasValue) ? address.Value : -1;
+                var filterQs = $"/category/{catagoryQs}/type/{typeQs}/address/{addressQs}";
                 return $"{baseUri}Items{filterQs}?pageIndex={page}&pageSize={take}";
-            }        
+            }
         }
 
         public static class Basket
@@ -47,7 +47,7 @@ namespace WebMvc.Infrastructure
             {
                 Debug.WriteLine("Here is the GetBasket Uri ***: " + $"{baseUri}/{basketId}");
                 return $"{baseUri}/{basketId}";
-                
+
             }
 
             public static string UpdateBasket(string baseUri)
@@ -59,6 +59,23 @@ namespace WebMvc.Infrastructure
             public static string CleanBasket(string baseUri, string basketId)
             {
                 return $"{baseUri}/{basketId}";
+            }
+
+        }
+        public static class Order
+        {
+            public static string GetOrder(string baseUri, string orderId)
+            {
+                return $"{baseUri}/{orderId}";
+            }
+
+            public static string GetOrders(string baseUri)
+            {
+                return baseUri;
+            }
+            public static string AddNewOrder(string baseUri)
+            {
+                return $"{baseUri}/new";
             }
         }
     }
