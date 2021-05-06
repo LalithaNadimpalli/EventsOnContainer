@@ -5,11 +5,12 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using WebMvc.Infrastructure;
 using WebMvc.Models;
+using System.Linq;
 using WebMvc.Models.CartModels;
+using WebMvc.Models.OrderModels;
 
 namespace WebMvc.Services
 {
@@ -113,6 +114,28 @@ namespace WebMvc.Services
              response.EnsureSuccessStatusCode();
 
             return Cart;
+        }
+
+        public Order MapCartToOrder(Cart cart)
+        {
+            var order = new Order();
+            order.OrderTotal = 0;
+
+            cart.Events.ForEach(x =>
+            {
+                order.OrderItems.Add(new OrderItem()
+                {
+                    EventId = int.Parse(x.EventId),
+
+                    PictureUrl = x.PictureUrl,
+                    EventName = x.EventName,
+                    Units = x.Quantity,
+                    UnitPrice = x.UnitPrice
+                });
+                order.OrderTotal += (x.Quantity * x.UnitPrice);
+            });
+
+            return order;
         }
     }
 }
