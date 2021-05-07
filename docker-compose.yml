@@ -52,7 +52,7 @@ services:
         max-file: "10"
     environment:
       ASPNETCORE_ENVIRONMENT: Development
-      IdentityUrl: http://192.168.86.242:7800
+      IdentityUrl: http://192.168.254.29:7800
       DatabaseServer: mssqlserver
       DatabaseName: OrderDB
       DatabaseUser: sa
@@ -95,6 +95,9 @@ services:
       IdentityUrl: http://192.168.86.242:7800
       CallBackUrl: http://localhost:7811
       CartUrl: http://cart
+      OrderUrl: http://order
+      StripePublicKey: pk_test_51InXkqE1lm64aojwfoCChLAglaqKkcRJaGIPsMAyXB8urT3dpkU1BNrGL30S0de5GbV7TTAg66mQk3KYyy6zUQ5d00nQsTLms5
+      StripePrivateKey: sk_test_51InXkqE1lm64aojwDJqNvjZwtdN5tcGuylgPvxutRDwdOH9V1xDbyCrmnTRvw24KXCDujMWA8HpcJZjm4qd7SOwQ00lVJYJzH9
     ports:
       - "7811:80"
     container_name: webshop
