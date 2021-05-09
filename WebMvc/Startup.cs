@@ -37,17 +37,14 @@ namespace WebMvc
             services.AddTransient<IIdentityService<ApplicationUser>, IdentityService>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddTransient<ICartService, CartService>();
+            services.AddTransient<IOrderService, OrderService>();
             var identityUrl = Configuration.GetValue<string>("IdentityUrl");
             var callBackUrl = Configuration.GetValue<string>("CallBackUrl");
             IdentityModelEventSource.ShowPII = true;
             services.AddAuthentication(options =>
             {
-                /*options.DefaultScheme = "Cookies";
-                options.DefaultChallengeScheme = "oidc";*/
-
                 options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
-                //options.DefaultAuthenticateScheme = "Cookies";
             })
             .AddCookie()
             .AddOpenIdConnect(options =>
@@ -65,15 +62,15 @@ namespace WebMvc
                 options.RequireHttpsMetadata = false;
                 options.Scope.Add("openid");
                 options.Scope.Add("profile");
-            options.Scope.Add("offline_access");
-            options.TokenValidationParameters = new TokenValidationParameters()
-            {
+                options.Scope.Add("basket");
+                options.Scope.Add("order");
+                options.Scope.Add("offline_access");
+                options.TokenValidationParameters = new TokenValidationParameters()
+                {
 
-                NameClaimType = "name",
-                RoleClaimType = "role"
-            };
-
-
+                    NameClaimType = "name",
+                    RoleClaimType = "role"
+                };
 
             });
         }
