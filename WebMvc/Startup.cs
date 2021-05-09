@@ -40,6 +40,7 @@ namespace WebMvc
             services.AddTransient<IOrderService, OrderService>();
             var identityUrl = Configuration.GetValue<string>("IdentityUrl");
             var callBackUrl = Configuration.GetValue<string>("CallBackUrl");
+            IdentityModelEventSource.ShowPII = true;
             services.AddAuthentication(options =>
             {
                 options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;

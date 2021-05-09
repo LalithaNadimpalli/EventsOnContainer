@@ -14,6 +14,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TokenServiceApi.Models;
 using TokenServiceApi.Services;
+using Microsoft.IdentityModel.Logging;
 
 namespace TokenServiceApi
 {
@@ -30,6 +31,7 @@ namespace TokenServiceApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.ConfigureNonBreakingSameSiteCookies();
+            IdentityModelEventSource.ShowPII = true;
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
