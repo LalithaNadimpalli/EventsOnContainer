@@ -73,7 +73,7 @@ namespace EventCatalogAPI.Data
                 },
                 new EventAddress
                 {
-                    City = " Bellevue", State = "WA ", ZipCode =98046  , StreetAddress = " 12908 NE 102nd way"
+                    City = " Snoqualmie", State = "WA ", ZipCode =98046  , StreetAddress = " 12908 NE 102nd way"
                 },
                 new EventAddress
                 {
@@ -81,7 +81,7 @@ namespace EventCatalogAPI.Data
                 },
                 new EventAddress
                 {
-                    City = " Seattle", State = "WA ", ZipCode =98121  , StreetAddress = " 12460 NE 106th way"
+                    City = " Bothell", State = "WA ", ZipCode =98121  , StreetAddress = " 12460 NE 106th way"
                 }
             };
         }
@@ -112,7 +112,7 @@ namespace EventCatalogAPI.Data
                 new EventItem
                 {
                     CategoryId = 10,
-                    AddressId = 3,
+                    AddressId = 6,
                     TypeId = 2,
                     EventName = "Toyota bash 4 Annual carshow ",
                  // Description = "",
@@ -126,7 +126,7 @@ namespace EventCatalogAPI.Data
                    new EventItem
                  {
                     CategoryId = 10,
-                    AddressId = 2,
+                    AddressId = 7,
                     TypeId = 1,
                     EventName = "CARS AND CARBON ",
                     Description = "	An event every month that begins at 7:00 pm ",
@@ -139,7 +139,7 @@ namespace EventCatalogAPI.Data
                 },
                    new EventItem {
                      CategoryId = 8,
-                     AddressId = 2,
+                     AddressId = 8,
                      TypeId = 2,
                      EventName = "FireWrok ",
                      Description = "Fouth of July celebration ",
@@ -151,7 +151,7 @@ namespace EventCatalogAPI.Data
                      EventImageUrl = "http://externaleventbaseurltoberplaced/api/pic/3"},
                    new EventItem {
                      CategoryId = 4,
-                     AddressId = 4,
+                     AddressId = 1,
                      TypeId = 2,
                      EventName = "Pumpkin Decorating For Dammy ",
                      Description = "Cool way to decorate pumpkin for Halloween ",
@@ -175,7 +175,7 @@ namespace EventCatalogAPI.Data
                      EventImageUrl = "http://externaleventbaseurltoberplaced/api/pic/13" },
                     new   EventItem {
                        CategoryId = 3,
-                       AddressId = 2,
+                       AddressId = 3,
                        TypeId = 1,
                        EventName = "Seminar ",
                        Description = "How to gradute without student loan ",
@@ -187,7 +187,7 @@ namespace EventCatalogAPI.Data
                        EventImageUrl = "http://externaleventbaseurltoberplaced/api/pic/4"},
                  new EventItem {
                        CategoryId = 8,
-                       AddressId = 2,
+                       AddressId = 4,
                        TypeId = 1,
                        EventName = "Music Concert ",
                        Description = "Best 80's Party ever ",
@@ -199,7 +199,7 @@ namespace EventCatalogAPI.Data
                        EventImageUrl = "http://externaleventbaseurltoberplaced/api/pic/5"},
                  new EventItem {
                        CategoryId = 12,
-                       AddressId = 2,
+                       AddressId = 5,
                        TypeId = 3,
                        EventName="Medical conference",
                        Description = "World Congress on Medical and Aromatic Plants",
@@ -211,7 +211,7 @@ namespace EventCatalogAPI.Data
                        EventImageUrl = "http://externaleventbaseurltoberplaced/api/pic/6" },
             new EventItem {
                        CategoryId = 11,
-                       AddressId = 2,
+                       AddressId = 6,
                        TypeId = 1,
                        EventName = "Hindu's festival in Seattle",
                        Description = "Come join us to celebrate life ",
@@ -223,7 +223,7 @@ namespace EventCatalogAPI.Data
                        EventImageUrl = "http://externaleventbaseurltoberplaced/api/pic/7"},
                  new EventItem {
                      CategoryId = 3,
-                     AddressId = 2,
+                     AddressId = 7,
                      TypeId = 1,
                      EventName = "Celebrity birthday cake Studio",
                      Description = "Beautifully delicious cakes for birthday",
@@ -235,7 +235,7 @@ namespace EventCatalogAPI.Data
                      EventImageUrl = "http://externaleventbaseurltoberplaced/api/pic/12"},
                   new EventItem {
                       CategoryId = 6,
-                      AddressId = 2,
+                      AddressId = 8,
                       TypeId = 1,
                       EventName = "Wine Tasting",
                       Description = "The best Wine in Washington state ",
